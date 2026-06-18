@@ -1,0 +1,18 @@
+//Bodhi first joining you.
+IF
+	True()
+THEN
+	RESPONSE #100
+	CutSceneId("YFBodhi")
+	SetInterrupt(FALSE)
+	ActionOverride("suelle2",ForceSpell("YFBodhi",FLASHY_1))
+	Wait(3)
+	Polymorph(FIGHTER_FEMALE_ELF)
+	ApplySpellRES("YFBODELF","YFBodhi")
+	Wait(1)
+	SetGlobal("YFBodhiBecomesElf","GLOBAL",1)
+	SetGlobal("YFBodhiEllesimeDialogue","GLOBAL",1)
+	SetGlobal("YFBodhiHasSoul","GLOBAL",2)
+	ActionOverride("suelle2",StartDialogNoSet(Player1))
+END
+

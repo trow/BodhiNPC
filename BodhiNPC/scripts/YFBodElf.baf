@@ -1,0 +1,27 @@
+
+IF
+	Global("YFBodhiBecomesElf","GLOBAL",1)
+	Global("YFFirstBodhiElfDialogue","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFFirstBodhiElfDialogue","GLOBAL",1)
+END
+
+IF
+	Global("YFFirstBodhiElfDialogue","GLOBAL",1)
+	Detect([PC])
+THEN
+	RESPONSE #100
+	PlaySong(0) 
+	PlaySound("YFBoMu01")
+	StartDialogNoSet(Player1)
+END
+
+IF
+	InParty("YFBodElf")
+	Global("YFFirstBodhiElfXP","GLOBAL",0)
+THEN
+	RESPONSE #100
+	AddXPObject("YFBodElf",4250000)
+	SetGlobal("YFFirstBodhiElfXP","GLOBAL",1)
+END

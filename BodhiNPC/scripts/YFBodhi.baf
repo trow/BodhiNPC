@@ -1,0 +1,296 @@
+//SOA Scripts
+
+//Script for turning into mist and leaving instead of dying.
+IF
+	HPLT(Myself,10)
+	Global("YFBodhiMist","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiMist","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",6)
+	Range([PC],3)
+THEN
+	RESPONSE #100
+	TransformItem("YFbohar2","YFbohair")
+	SetDialog("YFBodhip")
+	SetGlobal("YFBodhiMist","GLOBAL",8)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",8)
+	THEN
+		RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Scripts for leaving if it's sunny
+IF
+	AreaType(OUTDOOR)
+	!AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
+	TimeGT(DAWN_END)
+	TimeLT(DUSK_START)
+	!HasItemEquiped("ohhcloak",Myself)  // Cloak of Dragomir
+	Global("YFBodhiBurns","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiBurns","GLOBAL",1)
+	CreateVisualEffectObject("SPSMKJET",Myself)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",5)
+	Range([PC],3)
+THEN
+	RESPONSE #100
+	TransformItem("YFbohar2","YFbohair")
+	SetDialog("YFBodhip")
+	SetGlobal("YFBodhiBurns","GLOBAL",7)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",7)
+	THEN
+		RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Script for First Hexxat Cloak Talk, next script in Hexxat
+IF
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItemEquiped("ohhcloak","YFBodhi")
+	!HasItem("ohhcloak","Hexxat")
+	Global("YFCloakTalk","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFCloakTalk","GLOBAL",1)
+END
+
+//Script for 2nd Hexxat Cloak Talk
+IF
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItemEquiped("ohhcloak","YFBodhi")
+	HasItemEquiped("ohhcloak","Hexxat")
+	OR(2)
+	Global("YFCloakTalk","GLOBAL",0)
+	Global("YFCloakTalk","GLOBAL",2)
+THEN
+	RESPONSE #100
+	SetGlobal("YFCloakTalk","GLOBAL",3)
+END
+
+IF
+	Global("YFCloakTalk","GLOBAL",3)
+	InParty("YFBodhi")
+	!StateCheck("YFBodhi",CD_STATE_NOTVALID)
+	InParty("HEXXAT")
+	!StateCheck("HEXXAT",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Script for giving Bodhi the Rhynn Lanthorn
+IF
+	!HasItem("c6lantho",Myself)
+	Global("YFBodhiGetsLanthorn","GLOBAL",0)
+THEN
+	RESPONSE #100
+	GiveItemCreate("c6lantho",Myself,0,0,0)  // Lanthorn
+	SetGlobal("YFBodhiGetsLanthorn","GLOBAL",1)
+	Continue()
+END
+
+//Script for giving the Cloak of Dragomir to Bodhi
+IF
+	Global("YFBodhihasCloakofDragomir","GLOBAL",1)
+	!HasItem("OHHCLOAK",Myself)
+	Global("YFBodhigetsCloakofDragomir","GLOBAL",0)
+THEN
+	RESPONSE #100
+	GiveItemCreate("OHHCLOAK",Myself,0,0,0)
+	SetGlobal("YFBodhigetsCloakofDragomir","GLOBAL",1)
+	Continue()
+END
+
+//Script once combat ends to make the scripts set as if she's dead.
+IF
+	InParty("YFBodhi")
+	Global("YFWhenBodhiFirstJoinsSoA","GLOBAL",0)
+	CombatCounter(0)
+THEN
+	RESPONSE #100
+	EraseJournalEntry(16351)
+	EraseJournalEntry(7002)
+	EraseJournalEntry(3716)
+	EraseJournalEntry(5814)
+	EraseJournalEntry(16331)
+	EraseJournalEntry(15710)
+	EraseJournalEntry(15784)
+	EraseJournalEntry(7090)
+	EraseJournalEntry(7236)
+	EraseJournalEntry(7683)
+	EraseJournalEntry(7737)
+	EraseJournalEntry(8302)
+	EraseJournalEntry(10269)
+	EraseJournalEntry(11771)
+	SetGlobal("udMind","GLOBAL",41)
+	SetGlobal("YFWhenBodhiFirstJoinsSoA","GLOBAL",1)
+	SetGlobal("Coffin","AR0809",2)  // Bodhi's Lair (Abduction Plot, getting Imoen's soul)
+	SetGlobal("BodhiDead","GLOBAL",1)
+	AddXPObject(Player1,48500)
+	AddXPObject(Player2,48500)
+	AddXPObject(Player3,48500)
+	AddXPObject(Player4,48500)
+	AddXPObject(Player5,48500)
+	AddXPObject(Player6,48500)
+	EraseJournalEntry(97342)  // I must find the Rhynn Lanthorn, which will open the way to Suldanessellar, where Irenicus awaits. I am told that the Rhynn Lanthorn is currently possessed by Bodhi in her lair in Athkatla's Graveyard District. If I find any allies before then, they may be of help in facing her.
+	AddJournalEntry(97342,QUEST_DONE)  // I must find the Rhynn Lanthorn, which will open the way to Suldanessellar, where Irenicus awaits. I am told that the Rhynn Lanthorn is currently possessed by Bodhi in her lair in Athkatla's Graveyard District. If I find any allies before then, they may be of help in facing her.
+END
+
+//Script to interject into the Knights of the Noble Order arriving line
+IF
+	IfValidForPartyDialog("YFBodhi")
+	See("NobleOrder")
+	Global("YFOrderAttacksCN","GLOBAL",2)
+	Global("YFBodhiInterjectsNobleOrder","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiInterjectsNobleOrder","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiInterjectsNobleOrder","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Backup trigger for Bodhi being in your party.
+IF
+	!InParty("YFBodhi")
+	Global("YFBodhiJoinsParty","GLOBAL",2)
+	ActuallyInCombat()
+	AreaCheck("AR0809")
+THEN
+	RESPONSE #100
+	ClearActions(Myself)
+	JoinParty()
+END
+
+//Script to trigger Bodhi's dialogue immediately following combat if she had turned your love into a vampire.
+IF
+	IfValidForPartyDialog("YFBodhi")
+	Dead("vampano")
+	AreaCheck("AR0809")
+	CombatCounter(0)
+	Global("YFBodhiLoverDeadMale","GLOBAL",0)
+	Global("YFBodhiLoverDeadTalk","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiLoverDeadMale","GLOBAL",1)
+	SetGlobal("YFBodhiLoverDeadTalk","GLOBAL",1)
+END
+
+IF
+	IfValidForPartyDialog("YFBodhi")
+	OR(3)
+		Dead("vampaer")
+		Dead("vampjah")
+		Dead("vampvic")
+	AreaCheck("AR0809") //Bodhi's lair (when you battle her)
+	CombatCounter(0)
+	Global("YFBodhiLoverDeadFemale","GLOBAL",0)
+	Global("YFBodhiLoverDeadTalk","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiLoverDeadFemale","GLOBAL",1)
+	SetGlobal("YFBodhiLoverDeadTalk","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiLoverDeadTalk","GLOBAL",1)
+	OR(2)
+		Global("YFBodhiLoverDeadFemale","GLOBAL",1)
+		Global("YFBodhiLoverDeadMale","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Second Dialogue once you get the books.
+IF
+	Global("YFBodhiLoverDeadTalk","GLOBAL",2)
+	IfValidForPartyDialog("YFBodhi")
+	PartyHasItem("BOOK94")
+	PartyHasItem("BOOK95")
+	PartyHasItem("BOOK96")
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiLoverDeadTalk","GLOBAL",3)
+END
+
+IF
+	Global("YFBodhiLoverDeadTalk","GLOBAL",3)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Dialogue once you go back upstairs in her hideout.
+IF
+	IfValidForPartyDialog("YFBodhi")
+	AreaCheck("AR0808") //Bodhi's Hideout (when you battle her)
+	Global("YFBodhiHideoutElhanTalk","GLOBAL",0)
+	
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiHideoutElhanTalk","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiHideoutElhanTalk","GLOBAL",1)
+THEN
+	RESPONSE #100
+	PlaySong(0) 
+	PlaySound("YFBoMu01")
+	StartDialogNoSet(Player1)
+END
+	
+//Script if you have sex.
+IF
+	IfValidForPartyDialog("YFBodhi")
+	Global("YFBodhiVampireSex","GLOBAL",1)
+	Global("YFBodhiPostVampireSexTalk","GLOBAL",0)
+	AreaCheck("AR0808") //Bodhi's Hideout (when you battle her)
+THEN
+	RESPONSE #100
+	StartMovie("restdung")
+	DayNight(MIDNIGHT)
+	SetGlobal("YFBodhiPostVampireSexTalk","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiPostVampireSexTalk","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END

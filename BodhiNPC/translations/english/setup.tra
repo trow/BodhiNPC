@@ -1,0 +1,107 @@
+//Set Up TRA file
+@1 /*Begin*/ = ~Bodhi of the Falling Leaves - Bodhi Companion MOD~
+@52 = ~Detected All Thing Mazzy mod's For Evil component. Due to overlapping functions, please do not install this mod alongside it.~
+@53 = ~Like all mods that add NPCs to EET games, this mod must be installed after EET and before EET_End.~
+
+@54 /*Bodhi Name*/ = ~Bodhi~
+@55 /*Bodhi Bio*/ = ~When asked about her past, Bodhi spits out the words. She grew up in Suldanessellar alongside Jon Irenicus. Both of them were of unknown paternity and both were driven to surpass all others in their fields; he in magic and she in physical combat. During Jon Irenicus's mad scheme to become a god, she protected him, fighting off the most elite elven guards. For that crime, Queen Ellesime, Bodhi's half-sister, stripped them of their names and immortality and cast them out. As a vampire she was happy, but still mortal. Now with Imoen's soul within her, she feels elven once again, but remains consumed with hatred and regret.~
+@55001 /*Bodhi the Elf Bio*/ = ~When asked about her past, Bodhi laughs. For helping save her old city of Suldanessellar, Bodhi was rewarded with the form and soul that were taken from her years ago. Though she misses her half-sister, Queen Ellesime, she is happy to be on the road once again, where her preferred prey are plentiful.~
+@56 /*Morale*/ = ~No, no, it's mine! This life is mine!~ [BODHIX41.WAV]
+@5601 /*Leader*/ = ~Follow, please, and stay exactly in step with me. You would regret otherwise.~ [YFBodh05.WAV]
+@57 /*Bored*/ = ~Your task is clear, yet you delay.~ [BODHIX21.WAV]
+@58 /*BATTLE_CRY1*/ = ~One last time, let our paths cross in blood.~ [YFBodh14.WAV]
+@59 /*BATTLE_CRY2*/ = ~Prepare, for eternal sleep comes for you.~ [BODHIX05.WAV]
+@60 /*BATTLE_CRY3*/ = ~Here mousy, mousy. The hunt ends here and now.~ [BODHIX35.WAV]
+@61 /*BATTLE_CRY4*/ = ~This ends here. Tonight I shall feast on the blood of the gods!~ [BODHIX40.WAV]
+@6101 /*Battle_Cry5*/ = ~All shall end here.~ [YFBodh16.WAV]
+@62 /*Hurt*/ = ~No, no!~ [CEFALD16.WAV]
+@6201 /*SELECT_COMMON1*/ = ~I am Bodhi.~ [YFBodh04.WAV]
+@6202 /*SELECT_COMMON2*/ = ~I am Bodhi, and I greet you warmly.~ [YFBodh02.WAV]
+@63 /*SELECT_ACTION1*/ = ~You live only because I allow it.~ [BODHIX01.WAV]
+@64 /*SELECT_ACTION2*/ = ~This shall not take long.~ [BODHIX04.WAV]
+@6401 /*SELECT_ACTION3*/ = ~I could offer an alternative.~ [YFBodh06.WAV]
+@6402 /*SELECT_ACTION4*/ = ~Such confidence is admirable.~ [YFBodh07.WAV]
+@6403 /*SELECT_ACTION5*/ = ~Very well.~ [YFBodh08.WAV]
+@6404 /*SELECT_ACTION6*/ = ~Now do my bidding.~ [YFBodh09.WAV]
+@6405 /*SELECT_ACTION7*/ = ~As you wish.~ [YFBodh17.WAV]
+@6406 /*CRITICAL_HIT*/ = ~Excellent!~ [YFBodh10.WAV]
+@6407 /*CRITICAL_MISS*/ = ~Oh dear, not good at all.~ [YFBodh03.WAV]
+@6408 /*TARGET_IMMUNE*/ = ~You are becoming tiresome.~ [YFBodh11.WAV]
+@6409 /*HAPPY*/ = ~You have proven resilient beyond all expectation. It appeals to me.~ [YFBodh13.WAV]
+@65 /*UNHAPPY_ANNOYED*/ = ~Do not make me regret allying with you.~ [BODHIX19.WAV]
+@66 /*UNHAPPY_SERIOUS*/ = ~Hmm, I had hoped it would not come to this, but you have chosen your path, haven't you?~ [BODHIX31.WAV]
+@67 /*HIDDEN_IN_SHADOWS*/ = ~We observe from a distance.~ [YFBodh15.WAV]
+@6700 /*REACT_TO_DIE_GENERAL*/ = ~Your life ends here. A pity.~ [YFBodh12.WAV]
+
+//Bodhi's Claw
+@94 /*NAME*/ = ~Bodhi's Claw~
+@95 /*DESC*/ = ~Bodhi refuses to use weapons, preferring to crush, rip, and rend her opponents with her bare hands.
+
+STATISTICS:
+
+Combat abilities:
+– Level drain on hit.
+
+THAC0: +0
+Damage: 1d6 (crushing)
+Speed Factor: 0
+Proficiency Type: None
+Type: One-handed
+
+Weight: 0~
+
+//Bodhi's Ring
+@90 /*NAME*/ = ~Bodhi's Ring~
+@91 /*DESC*/ = ~Bodhi will not remove this ring nor tell you what it does.
+
+STATISTICS:
+
+Weight: 0~
+
+//Bodhi's Amulet
+@92 /*NAME*/ = ~Bodhi's Amulet~
+@93 /*DESC*/ = ~Bodhi's amulet matches her eyes and glows when she is excited.
+
+STATISTICS:
+
+Weight: 0~
+
+//Bodhi's Belt
+@84 /*NAME*/ = ~Bodhi's Belt~
+@85 /*DESC*/ = ~Bodhi's belt is made of a nearly indestructible material and you have never seen her take it off.
+
+STATISTICS:
+
+Weight: 0~
+
+//Bodhi's Hair
+@86 /*NAME*/ = ~Bodhi's Hair~
+@87 /*DESC*/ = ~Bodhi refuses to wear helms or hats of any kind. She prefers to feel the wind through her hair.
+
+STATISTICS:
+
+Weight: 0~
+
+//Bodhi's Skin
+@88 /*NAME*/ = ~Bodhi's Skin~
+@89 /*DESC*/ = ~Bodhi will not wear armor. She finds it too confining.
+
+STATISTICS:
+
+Weight: 0~
+
+//Bodhi Epilogue (Vampire)
+@135 = ~After her time with <CHARNAME>, Bodhi retired to Zazesspur, the largest port city in Tethyr. There she preyed on hapless sailors and merchants who were unfortunate enough to catch her eye. After many deaths, Zazesspur sent its guards and soldiers to destroy her, which led to their complete obliteration. Eventually the city government accepted Bodhi's presence and redesigned the city around her, redirecting the poorest and least favorable ships to her favorite hunting grounds.~
+
+//Bodhi Epilogue (Elf)
+@136 = ~After traveling with <CHARNAME>, Bodhi slowly journeyed north back toward her homeland, feasting and fighting along the way. She reached her City of Trees at the same time as an invading army, and once again Bodhi was responsible for saving Suldanessellar from complete annihilation.
+
+Her sister-queen rejoiced at her return, and her fellow elves finally accepted her as one of their own. Bodhi lived there for many years, and if the human peasants nearby suffered from her presence, that was a price the elves of Suldanessellar were willing to pay.~
+
+@137 = ~Wilson detected - Wilson interdia.2da append - set Wilson's banter file (BWILSON & BWILSO25)~
+@138 = ~Wilson has no ToB override script? That must be changed!~
+@150 = ~Clara detected - adding crossmod banters~
+@151 = ~Clara NPC not detected~
+
+
+@156 = ~Adds Bodhi as a joinable NPC for all your evil vampire needs~

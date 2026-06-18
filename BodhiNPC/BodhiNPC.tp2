@@ -1,0 +1,427 @@
+BACKUP ~BodhiNPC/backup~
+
+AUTHOR ~MephistoSatanDevil~
+
+VERSION ~Version 0.0.1~
+
+README ~BodhiNPC/readme.txt~ //This gives people the option of opening the readme
+
+AUTO_TRA ~BodhiNPC/translations/%s~ //You need this if you plan to have multiple languages.
+
+// This code should make this EET compatible because why not?
+ALWAYS
+  ACTION_IF NOT VARIABLE_IS_SET bg2_chapter BEGIN
+    ACTION_IF GAME_IS ~eet~ BEGIN
+      OUTER_SET bg2_chapter = 12 // EET uses continuous chapter numbering from BG1 through TOB and this starts at "12" in BGII
+    END ELSE BEGIN
+      OUTER_SET bg2_chapter = 0 // all other game types (BGII(:EE), BGT) restart chapter numbering in SOA
+    END
+    OUTER_FOR (i=1; i<=10; i=i+1) BEGIN
+      OUTER_SET bg2_chapter = bg2_chapter + 1
+      OUTER_SPRINT name_source ~bg2_chapter_%i%~
+      OUTER_SET EVAL ~%name_source%~ = bg2_chapter //store adjusted chapter numbers in %bg_chapter_#% variables for use in .baf/.d scripts (e.g., %bg_chapter_1% will evaluate to 13 for EET and to 1 otherwise). This only works if you add the EVALUATE BUFFER code when compiling files with chapter triggers. See below.
+    END
+  END
+END
+
+
+LANGUAGE ~English~ ~english~ ~BodhiNPC/translations/english/setup.tra~ //List all available languages here. Each needs its own folder.
+LANGUAGE ~Russian~ ~russian~ ~BodhiNPC/translations/russian/setup.tra~
+LANGUAGE ~Simplified Chinese~ ~schinese~ ~BodhiNPC/translations/schinese/setup.tra~
+		 
+BEGIN @1 /*~Bodhi NPC~*/        //Any text written after Begin will appear as XXX in the Weidu install: Install XXX?
+DESIGNATED 0 LABEL ~Bodhi-main~
+	FORBID_COMPONENT ~AllThingsMazzy.tp2~ ~1~ @52
+	FORBID_COMPONENT ~setup-AllThingsMazzy.tp2~ ~1~ @52
+	FORBID_COMPONENT ~EET_end.tp2~ ~0~ @53
+	FORBID_COMPONENT ~EET_end.tp2~ ~1~ @53
+	//FORBID_FILE ~override/YFclara.CRE~ @52
+	
+// Adds CD_STATE_NOTVALID state from CamDawg. May be unnecessary when coding for EE.
+APPEND ~STATE.IDS~ ~0x80101FEF CD_STATE_NOTVALID~
+UNLESS ~CD_STATE_NOTVALID~	
+
+//Code to give Wilson proper dialogue files, courtesy of LavaDelVortel so our mods don't conflict
+ACTION_IF FILE_EXISTS_IN_GAME ~wilson.dlg~ THEN BEGIN
+ PRINT @137 /*Wilson detected - Wilson interdia.2da append - set Wilsons's banter file (BWILSON & BWILSO25)*/ //PRINT ~~ lets you add visible text to the Weidu setup. Can be tra-ified just like anything else.
+    APPEND ~interdia.2da~ ~WILSON BWILSON BWILSO25~
+    UNLESS ~WILSON~
+	
+	COPY_EXISTING ~pdialog.2da~ ~override~
+  REPLACE_TEXTUALLY ~^[ %TAB%]*WILSON[ %TAB%].+$~
+                    ~WILSON                 WILSONP                WILSONJ                WILSOND                WILSO25P               WILSO25J               WILSO25D               WILSON25~
+BUT_ONLY_IF_IT_CHANGES //This stops Weidu from repeating the action if another mod already installed Wilson's files
+
+//Dialogue Files
+   ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSON.dlg~) THEN BEGIN
+   COMPILE ~BodhiNPC/dialogues/goodevil/BWILSONFix.d~
+  END
+   ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSO25.dlg~) THEN BEGIN
+   COMPILE ~BodhiNPC/dialogues/goodevil/BWILSO25Fix.d~
+  END
+    ACTION_IF NOT (FILE_EXISTS_IN_GAME ~WILSO25J.dlg~) THEN BEGIN
+   COMPILE ~BodhiNPC/dialogues/goodevil/WILSO25JFix.d~
+  END
+END
+
+TOB Script
+ACTION_IF NOT (FILE_EXISTS_IN_GAME ~Wilson25.bcs~) THEN BEGIN
+  PRINT @138 /*Wilson has no ToB override script? That must be changed!*/
+  COMPILE ~BodhiNPC/scripts/crossmod/wilson25.baf~
+END
+
+COPY_EXISTING ~Wilson13.cre~ ~override~ // Wilson version summoned by Fate Spirit in new ToB game (this version will NOT be summoned in EET if Wilson was with the party in SoA)
+  WRITE_EVALUATED_ASCII DIALOG          ~WILSON25~ #8
+  WRITE_EVALUATED_ASCII SCRIPT_OVERRIDE ~WILSON25~ #8
+  ADD_CRE_ITEM ~L#wilroc~ #1 #0 #0 ~identified~ ~qitem~ // missed quest reward from SoA
+  
+  
+//This code adds scriptnames to several NPCs that lack them in the normal game. This can cause issues with any other mods that try to do the same, so use sparingly. These scriptnames will only appear on newly created characters, so they will not appear if you install the mod mid-game.
+
+COPY_EXISTING ~MURDGIRL.cre~ ~override~ //Rose Bouquet (Bridge Prostitute)
+  WRITE_EVALUATED_ASCII DEATHVAR        ~murdgirl~ #32
+  BUT_ONLY_IF_IT_CHANGES 
+  
+// COPY_EXISTING ~GERETH.cre~ ~override~ //Gereth (Mage in Adventurer's Mart)
+//  WRITE_EVALUATED_ASCII DEATHVAR        ~Gereth~ #32
+//  BUT_ONLY_IF_IT_CHANGES 
+  
+COPY_EXISTING ~BERTRAND.cre~ ~override~ //Bertrand the Companion
+  WRITE_EVALUATED_ASCII DEATHVAR        ~Bertrand~ #32
+  BUT_ONLY_IF_IT_CHANGES 
+  
+// COPY_EXISTING ~BPROST2.cre~ ~override~ //Courtesan
+//  WRITE_EVALUATED_ASCII DEATHVAR        ~bprost2~ #32
+//  BUT_ONLY_IF_IT_CHANGES 
+
+//COPY_EXISTING ~DHARLOT1.cre~ ~override~ //Harlot
+//  WRITE_EVALUATED_ASCII DEATHVAR        ~dharlot1~ #32
+//  BUT_ONLY_IF_IT_CHANGES   
+		 
+		 
+//BEGIN @53 /*For the Evil: Additional content that might disturb a truly good player.*/       //The additional BEGIN makes this an optional mod segment that's installed separately.
+//REQUIRE_FILE ~override/YFPICKP.spl~ @52 /*You must have the main mod installed.*/            //This code means that the segment can't be installed without the main mod.
+
+//Bodhi SoA
+PRINT @156 /*Adding Bodhi NPC for all your evil vampire needs*/
+COPY ~BodhiNPC/copy~ ~override~
+COPY ~BodhiNPC/characters/YFbodhi.cre~ ~override/YFbodhi.cre~
+SAY NAME1 @54 /*Bodhi*/
+SAY NAME2 @54 /*Bodhi*/
+SAY BIO @55 /*When asked about her past, Bodhi spits out the words. She grew up in Suldanessellar alongside Jon Inrenicus. Both of them were of unknown paternity and both were driven to surpass all others in their fields; he in magic and she in physical combat. During Jon Irenicus's mad scheme to become a god she protected him, fighting off the most elite of the elven guards. For that queen Ellesime, Bodhi's half sister, stripped them of their names and immortality and cast them out. As a vampire she was happy, but still mortal. Now with Imoen's soul within her, she feels elven once again, but remains consumed with hatred and regret.*/
+SAY MORALE @56 /*No, no it's mine! This life is mine! [BODHIX41.WAV]*/
+SAY LEADER @5601 /*Follow, please, and stay exactly in my step. You would regret doing other. [YFBodh05.WAV]*/
+SAY TIRED ~~
+SAY BORED @57 /*Your task is clear, yet you delay. [BODHIX21.WAV]*/
+SAY BATTLE_CRY1 @58 /*One last time, let our paths cross in blood. [YFBodh14.WAV]*/
+SAY BATTLE_CRY2 @59 /*Prepare, for the final sleep comes for you. [BODHIX05.WAV]*/
+SAY BATTLE_CRY3 @60 /*Here mousy, mousy. The hunt draws to a close here and now. [BODHIX35.WAV]*/
+SAY BATTLE_CRY4 @61 /*This ends here. Tonight I shall feast on the blood of the gods! [BODHIX40.WAV]*/
+SAY BATTLE_CRY5 @6101 /*And so it shall end here. [YFBodh16.WAV]*/
+SAY DAMAGE ~~ [BODHIX06.WAV]
+SAY DYING ~~ [BODHIX07.WAV]
+SAY HURT @62 /*No, no! [CEFALD16.WAV]*/
+SAY AREA_FOREST ~~
+SAY AREA_CITY ~~
+SAY AREA_DUNGEON ~~
+SAY AREA_DAY ~~
+SAY AREA_NIGHT ~~
+SAY SELECT_COMMON1 @6201 /*I am Bodhi. [YFBodh04.WAV]*/
+SAY SELECT_COMMON2 @6202 /*I am Bodhi, and I greet you warmly. [YFBodh02.WAV]*/
+SAY SELECT_COMMON3 ~~
+SAY SELECT_COMMON4 ~~
+SAY SELECT_COMMON5 ~~
+SAY SELECT_COMMON6 ~~
+SAY SELECT_ACTION1 @63 /*You live so long as I tolerate it. [BODHIX01.WAV]*/
+SAY SELECT_ACTION2 @64 /*This shall not take long. [BODHIX04.WAV]*/
+SAY SELECT_ACTION3 @6401 /*I would offer an alternative. [YFBodh06.WAV]*/
+SAY SELECT_ACTION4 @6402 /*Such confidence is admirable. [YFBodh07.WAV]*/
+SAY SELECT_ACTION5 @6403 /*Very well. [YFBodh08.WAV]*/
+SAY SELECT_ACTION6 @6404 /*Now to my tasks. [YFBodh09.WAV]*/
+SAY SELECT_ACTION7 @6405 /*As you would have it. [YFBodh17.WAV]*/
+SAY SELECT_RARE1 ~~
+SAY SELECT_RARE2 ~~
+SAY CRITICAL_HIT @6406 /*Excellent! [YFBodh10.WAV]*/
+SAY CRITICAL_MISS @6407 /*Oh dear, not good at all. [YFBodh03.WAV]*/
+SAY TARGET_IMMUNE @6408 /*You are becoming an impressive pest. [YFBodh11.WAV]*/
+SAY INVENTORY_FULL ~~
+SAY HAPPY @6409 /*You have proven resiliant beyond all expectation. It is appealing to me. [YFBodh13.WAV]*/
+SAY UNHAPPY_ANNOYED @65 /*Do not make me regret allying myself to you. [BODHIX19.WAV]*/
+SAY UNHAPPY_SERIOUS @66 /*Hmm, I had hoped it would not come to this, but you are set in your path, aren't you? [BODHIX31.WAV]*/
+SAY SET_A_TRAP ~~
+SAY HIDDEN_IN_SHADOWS @67 /*We will observe from a distance. [YFBodh15.WAV]*/
+SAY PICKED_POCKET ~~
+SAY REACT_TO_DIE_GENERAL @6700 /*And so your life does come to an end. A pity. [YFBodh12.WAV]*/
+
+//ToB Bodhi
+COPY ~BodhiNPC/characters/YFbod25.cre~ ~override/YFbod25.cre~
+SAY NAME1 @54 /*Bodhi*/
+SAY NAME2 @54 /*Bodhi*/
+SAY BIO @55 /*When asked about her past, Bodhi spits out the words. She grew up in Suldanessellar alongside Jon Inrenicus. Both of them were of unknown paternity and both were driven to surpass all others in their fields; he in magic and she in physical combat. During Jon Irenicus's mad scheme to become a god she protected him, fighting off the most elite of the elven guards. For that queen Ellesime, Bodhi's half sister, stripped them of their names and immortality and cast them out. As a vampire she was happy, but still mortal. Now with Imoen's soul within her, she feels elven once again, but remains consumed with hatred and regret.*/
+SAY MORALE @56 /*No, no it's mine! This life is mine! [BODHIX41.WAV]*/
+SAY LEADER @5601 /*Follow, please, and stay exactly in my step. You would regret doing other. [YFBodh05.WAV]*/
+SAY TIRED ~~
+SAY BORED @57 /*Your task is clear, yet you delay. [BODHIX21.WAV]*/
+SAY BATTLE_CRY1 @58 /*One last time, let our paths cross in blood. [YFBodh14.WAV]*/
+SAY BATTLE_CRY2 @59 /*Prepare, for the final sleep comes for you. [BODHIX05.WAV]*/
+SAY BATTLE_CRY3 @60 /*Here mousy, mousy. The hunt draws to a close here and now. [BODHIX35.WAV]*/
+SAY BATTLE_CRY4 @61 /*This ends here. Tonight I shall feast on the blood of the gods! [BODHIX40.WAV]*/
+SAY BATTLE_CRY5 @6101 /*And so it shall end here. [YFBodh16.WAV]*/
+SAY DAMAGE ~~ [BODHIX06.WAV]
+SAY DYING ~~ [BODHIX07.WAV]
+SAY HURT @62 /*No, no! [CEFALD16.WAV]*/
+SAY AREA_FOREST ~~
+SAY AREA_CITY ~~
+SAY AREA_DUNGEON ~~
+SAY AREA_DAY ~~
+SAY AREA_NIGHT ~~
+SAY SELECT_COMMON1 @6201 /*I am Bodhi. [YFBodh04.WAV]*/
+SAY SELECT_COMMON2 @6202 /*I am Bodhi, and I greet you warmly. [YFBodh02.WAV]*/
+SAY SELECT_COMMON3 ~~
+SAY SELECT_COMMON4 ~~
+SAY SELECT_COMMON5 ~~
+SAY SELECT_COMMON6 ~~
+SAY SELECT_ACTION1 @63 /*You live so long as I tolerate it. [BODHIX01.WAV]*/
+SAY SELECT_ACTION2 @64 /*This shall not take long. [BODHIX04.WAV]*/
+SAY SELECT_ACTION3 @6401 /*I would offer an alternative. [YFBodh06.WAV]*/
+SAY SELECT_ACTION4 @6402 /*Such confidence is admirable. [YFBodh07.WAV]*/
+SAY SELECT_ACTION5 @6403 /*Very well. [YFBodh08.WAV]*/
+SAY SELECT_ACTION6 @6404 /*Now to my tasks. [YFBodh09.WAV]*/
+SAY SELECT_ACTION7 @6405 /*As you would have it. [YFBodh17.WAV]*/
+SAY SELECT_RARE1 ~~
+SAY SELECT_RARE2 ~~
+SAY CRITICAL_HIT @6406 /*Excellent! [YFBodh10.WAV]*/
+SAY CRITICAL_MISS @6407 /*Oh dear, not good at all. [YFBodh03.WAV]*/
+SAY TARGET_IMMUNE @6408 /*You are becoming an impressive pest. [YFBodh11.WAV]*/
+SAY INVENTORY_FULL ~~
+SAY HAPPY @6409 /*You have proven resiliant beyond all expectation. It is appealing to me. [YFBodh13.WAV]*/
+SAY UNHAPPY_ANNOYED @65 /*Do not make me regret allying myself to you. [BODHIX19.WAV]*/
+SAY UNHAPPY_SERIOUS @66 /*Hmm, I had hoped it would not come to this, but you are set in your path, aren't you? [BODHIX31.WAV]*/
+SAY SET_A_TRAP ~~
+SAY HIDDEN_IN_SHADOWS @67 /*We will observe from a distance. [YFBodh15.WAV]*/
+SAY PICKED_POCKET ~~
+SAY REACT_TO_DIE_GENERAL @6700 /*And so your life does come to an end. A pity. [YFBodh12.WAV]*/
+
+//ToB Bodhi Elf
+COPY ~BodhiNPC/characters/YFBodElf.cre~ ~override/YFBodElf.cre~
+SAY NAME1 @54 /*Bodhi*/
+SAY NAME2 @54 /*Bodhi*/
+SAY BIO @55001 /*When asked about her past, Bodhi laughs. For helping you save her old city of Suldanessellar, Bodhi was rewarded with the same form and soul that were taken from her years ago. Though she misses her half-sister, Queen Ellesime, she is happy to be on the road once again, where her preferred prey are plentiful.*/
+SAY MORALE @56 /*No, no it's mine! This life is mine! [BODHIX41.WAV]*/
+SAY LEADER @5601 /*Follow, please, and stay exactly in my step. You would regret doing other. [YFBodh05.WAV]*/
+SAY TIRED ~~
+SAY BORED @57 /*Your task is clear, yet you delay. [BODHIX21.WAV]*/
+SAY BATTLE_CRY1 @58 /*One last time, let our paths cross in blood. [YFBodh14.WAV]*/
+SAY BATTLE_CRY2 @59 /*Prepare, for the final sleep comes for you. [BODHIX05.WAV]*/
+SAY BATTLE_CRY3 @60 /*Here mousy, mousy. The hunt draws to a close here and now. [BODHIX35.WAV]*/
+SAY BATTLE_CRY4 @61 /*This ends here. Tonight I shall feast on the blood of the gods! [BODHIX40.WAV]*/
+SAY BATTLE_CRY5 @6101 /*And so it shall end here. [YFBodh16.WAV]*/
+SAY DAMAGE ~~ [BODHIX06.WAV]
+SAY DYING ~~ [BODHIX07.WAV]
+SAY HURT @62 /*No, no! [CEFALD16.WAV]*/
+SAY AREA_FOREST ~~
+SAY AREA_CITY ~~
+SAY AREA_DUNGEON ~~
+SAY AREA_DAY ~~
+SAY AREA_NIGHT ~~
+SAY SELECT_COMMON1 @6201 /*I am Bodhi. [YFBodh04.WAV]*/
+SAY SELECT_COMMON2 @6202 /*I am Bodhi, and I greet you warmly. [YFBodh02.WAV]*/
+SAY SELECT_COMMON3 ~~
+SAY SELECT_COMMON4 ~~
+SAY SELECT_COMMON5 ~~
+SAY SELECT_COMMON6 ~~
+SAY SELECT_ACTION1 @63 /*You live so long as I tolerate it. [BODHIX01.WAV]*/
+SAY SELECT_ACTION2 @64 /*This shall not take long. [BODHIX04.WAV]*/
+SAY SELECT_ACTION3 @6401 /*I would offer an alternative. [YFBodh06.WAV]*/
+SAY SELECT_ACTION4 @6402 /*Such confidence is admirable. [YFBodh07.WAV]*/
+SAY SELECT_ACTION5 @6403 /*Very well. [YFBodh08.WAV]*/
+SAY SELECT_ACTION6 @6404 /*Now to my tasks. [YFBodh09.WAV]*/
+SAY SELECT_ACTION7 @6405 /*As you would have it. [YFBodh17.WAV]*/
+SAY SELECT_RARE1 ~~
+SAY SELECT_RARE2 ~~
+SAY CRITICAL_HIT @6406 /*Excellent! [YFBodh10.WAV]*/
+SAY CRITICAL_MISS @6407 /*Oh dear, not good at all. [YFBodh03.WAV]*/
+SAY TARGET_IMMUNE @6408 /*You are becoming an impressive pest. [YFBodh11.WAV]*/
+SAY INVENTORY_FULL ~~
+SAY HAPPY @6409 /*You have proven resiliant beyond all expectation. It is appealing to me. [YFBodh13.WAV]*/
+SAY UNHAPPY_ANNOYED @65 /*Do not make me regret allying myself to you. [BODHIX19.WAV]*/
+SAY UNHAPPY_SERIOUS @66 /*Hmm, I had hoped it would not come to this, but you are set in your path, aren't you? [BODHIX31.WAV]*/
+SAY SET_A_TRAP ~~
+SAY HIDDEN_IN_SHADOWS @67 /*We will observe from a distance. [YFBodh15.WAV]*/
+SAY PICKED_POCKET ~~
+SAY REACT_TO_DIE_GENERAL @6700 /*And so your life does come to an end. A pity. [YFBodh12.WAV]*/
+
+//COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFworkingbodhi.d~
+//COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFbodhiinterjections.d~
+
+APPEND ~pdialog.2da~ //For Bodhi. This is only for party files, so the default d files aren't here. Order matters (script, p, j, dscript, tobp, tobj, tobd, tobscript)
+~YFBodhi     YFBodhip     YFBodhij     YFBodhid     YFBod25p     YFBod25j     YFBod25d     YFBod25~
+
+APPEND ~pdialog.2da~ //For Bodhi-Elf. ToB only so SoA ones are the same. This is only for party files, so the default d files aren't here. Order matters (script, p, j, dscript, tobp, tobj, tobd, tobscript)
+~YFBodElf     YFBoElfp     YFBoElfj     YFBoElfd     YFBoElfp     YFBoElfj     YFBoElfd     YFBodElf~
+
+APPEND ~interdia.2da~ //For Bodhi.
+~YFBodhi     bYFBodhi     bYFBod25~
+
+APPEND ~interdia.2da~ //For Bodhi-Elf.
+~YFBodElf     bYFBoElf     bYFBoElf~
+
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues~
+
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhi.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhid.baf~
+EXTEND_BOTTOM ~baldur.bcs~ ~BodhiNPC/scripts/YFmisbak.baf~ EVALUATE_BUFFER
+COMPILE ~BodhiNPC/scripts/YFBod25.baf~
+COMPILE ~BodhiNPC/scripts/YFBod25d.baf~
+COMPILE ~BodhiNPC/scripts/YFBod25d.baf~
+EXTEND_BOTTOM ~baldur25.bcs~ ~BodhiNPC/scripts/YFmiba25.baf~
+
+//Bodhi Elf
+COMPILE ~BodhiNPC/scripts/YFBoElfd.baf~
+COMPILE ~BodhiNPC/scripts/YFBodElf.baf~
+
+//Bodhi SoA Cutscenes
+COMPILE ~BodhiNPC/scripts/YFBoJoin.baf~
+COMPILE ~BodhiNPC/scripts/YFBoTran.baf~
+
+//Scripts to turn Bodhi's people in her lair to your allies after she joins you.
+EXTEND_TOP ~vampir01.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~c6vampir.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~mistva.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~Reddeath.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~Vampir01.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~Vampaer.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~Vampano.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~Vampjah.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~Vampvic.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~WDASIGHT.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+
+//Code to add Bodhi's items. These are what gives her all her cool vampire powers.
+COPY ~BodhiNPC/items/YFBOCLAW.itm~ ~override~
+SAY NAME1 @94 /*Bodhi's Claw*/
+SAY NAME2 @94 /*Bodhi's Claw*/
+SAY DESC @95 /*Bodhi refuses to use weapons, preferring to crush, rip, and rend her opponents with her bare hands.
+
+STATISTICS:
+
+Combat abilities:
+– Level drain on hit.
+
+THAC0: +0
+Damage: 1d6 (crushing)
+Speed Factor: 0
+Proficiency Type: None
+Type: One-handed
+
+Weight: 0 */
+
+COPY ~BodhiNPC/items/YFBODRI2.itm~ ~override~
+SAY NAME1 @90 /*Bodhi's Ring*/
+SAY NAME2 @90 /*Bodhi's Ring*/
+SAY DESC @91 /*Bodhi will not remove this ring nor tell you what it does.
+
+STATISTICS:
+
+Weight: 0*/
+
+COPY ~BodhiNPC/items/YFBODAMU.itm~ ~override~
+SAY NAME1 @92 /*Bodhi's Amulet*/
+SAY NAME2 @92 /*Bodhi's Amulet*/
+SAY DESC @93 /*Bodhi's amulet matches her eyes and glows when she's excited.
+
+STATISTICS:
+
+Weight: 0*/
+
+COPY ~BodhiNPC/items/YFBOBELT.itm~ ~override~
+SAY NAME1 @84 /*Bodhi's Belt*/
+SAY NAME2 @84 /*Bodhi's Belt*/
+SAY DESC @85 /*Bodhi's belt is made of a nearly indestructable material and you have never seen her take it off.
+
+STATISTICS:
+
+Weight: 0*/
+
+COPY ~BodhiNPC/items/YFBOHAIR.itm~ ~override~
+SAY NAME1 @86 /*Bodhi's Hair*/
+SAY NAME2 @86 /*Bodhi's Hair*/
+SAY DESC @87 /*Bodhi refuses to wear helms or hats of any kind. She prefers to feel the wind through her hair.
+
+STATISTICS:
+
+Weight: 0*/
+
+COPY ~BodhiNPC/items/YFBOHAR2.itm~ ~override~
+SAY NAME1 @86 /*Bodhi's Hair*/
+SAY NAME2 @86 /*Bodhi's Hair*/
+SAY DESC @87 /*Bodhi refuses to wear helms or hats of any kind. She prefers to feel the wind through her hair.
+
+STATISTICS:
+
+Weight: 0*/
+
+COPY ~BodhiNPC/items/YFBOSKIN.itm~ ~override~
+SAY NAME1 @88 /*Bodhi's Skin*/
+SAY NAME2 @88 /*Bodhi's Skin*/
+SAY DESC @89 /*Bodhi will not wear armor. She finds it confining.
+
+STATISTICS:
+
+Weight: 0*/
+
+// EET related code & summoning script
+ACTION_IF GAME_IS ~eet~ THEN BEGIN 
+  INCLUDE ~EET/other/EET_functions.tph~ //declaration of external EET functions used below
+  LAF ~EET_NPC_TRANSITION~ //function used to automatically implement EET continuity system
+    INT_VAR
+      type = 2 //informs the function that this is BG2 NPC without BG1 content
+	  clean_ToB = 1
+    STR_VAR
+      dv = "YFBodhi" //Bodhi Death Variable (script name)
+      override_SoA = "YFBodhi" //SoA Override script
+      override_ToB = "YFBod25" //ToB Override script
+      dialog_ToB = "YFBod25" //ToB dialogue file
+	  cre_ToB = "YFBod25"
+	  traFile = EVAL "BodhiNPC/translations/%LANGUAGE%/YFBod25.tra"
+      string = "@0" /*Bring me Bodhi, the bloodthirsty vampire.*/
+      stringPosDV = "Cernd" //Bodhi should be appended right above Cernd
+	  clean_ToB_DV = "YFBodhi"
+  END
+  
+ END ELSE BEGIN //different Fate Spirit dialogue patching for any other platform than EET
+  COMPILE ~BodhiNPC/dialogues/YFFateSpBodhi.d~ USING ~BodhiNPC/translations/%LANGUAGE%/YFFateSpBodhi.tra~ //Other Fate Spirit dialogue, this says to use same tra as TOB file
+END
+
+//Code to make Malchor Harpell not come back after you kill him.
+COPY_EXISTING ~baldur.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF   //This code changes the game file to something Weidu can edit
+    REPLACE_TEXTUALLY //This code says to replace every instance of the first ~~ with what's inside the second ~~
+	~!Exists("c6harp")~
+            ~!Exists("c6harp") !Dead("c6harp")~
+  COMPILE_BAF_TO_BCS //This code then recompiles the file into a game file
+BUT_ONLY_IF_IT_CHANGES  //To stop this from happening endlessly
+
+
+//Bodhi Vampire
+COPY ~BodhiNPC/epilogue/YFBodV.2da~ ~override/YFBodV1.2da~ //Vampire (all)
+REPLACE ~99999~ @135
+
+//Bodhi Elf
+COPY ~BodhiNPC/epilogue/YFBodE.2da~ ~override/YFBodE1.2da~ //Elf (all)
+REPLACE ~99999~ @136
+
+//Crossmod files for Clara only
+// ----- Clara 的跨 Mod (Crossmod) 内容 -----
+// 检查游戏中是否存在 Saradas NPC 的角色文件 (!sartob.cre)。
+// 这通常意味着 Saradas NPC Mod 已安装。
+ACTION_IF FILE_EXISTS_IN_GAME ~YF_Clara.cre~ THEN BEGIN //This code detects the Saradas NPC and adds his banters with Clara
+    // 如果检测到 Saradas，则打印信息。
+ PRINT @150
+     // 编译 Clara 与 Saradas 之间的互动对话文件。
+OUTER_SET YFBodhiJoinsSoA5STATE = STATE_WHICH_SAYS 21 IN ~BodhiNPC\translations\%s\YFBodhi.tra~ FROM ~C6BODHI~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/YFBodhi.d~ 
+ COMPILE ~BodhiNPC/crossmod/bYFBodhi.d~ 
+ COMPILE ~BodhiNPC/crossmod/bYFBod25.d~ 
+END ELSE BEGIN    // 如果未检测到 Saradas，则打印信息。
+ PRINT @151
+END // 结束 Saradas 不存在的处理块。

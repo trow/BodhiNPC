@@ -1,0 +1,168 @@
+// Bodhi's TOB scripts
+
+//Bodhi Elf Script
+IF
+	Global("YFBodhiBecomesElf","GLOBAL",1)
+	Global("YFBodhiVampireVanish","GLOBAL",0)
+THEN
+	RESPONSE #100
+	DropInventory()
+	CreateCreature("YFBodElf",[743.427],S)
+	SetGlobal("YFBodhiVampireVanish","GLOBAL",1)
+	LeaveParty()
+	Continue()
+END
+
+IF
+	Global("YFBodhiVampireVanish","GLOBAL",1)
+THEN
+	RESPONSE #100
+	MoveBetweenAreas("AR0810",[383.479],S)
+	SetGlobal("YFBodhiVampireVanish","GLOBAL",2)
+END	
+
+//Script for summoning.
+IF
+Global("YFBodhiSummoned","GLOBAL",1)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiSummoned","GLOBAL",2)
+END
+
+IF
+Global("YFBodhiSummoned","GLOBAL",2)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Script for turning into mist and leaving instead of dying.
+IF
+	HPLT(Myself,10)
+	Global("YFBodhiMist","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiMist","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",6)
+	Range([PC],3)
+THEN
+	RESPONSE #100
+	TransformItem("YFbohar2","YFbohair")
+	SetDialog("YFBod25p")
+	SetGlobal("YFBodhiMist","GLOBAL",8)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",8)
+	THEN
+		RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Scritps for leaving if it's sunny
+IF
+	AreaType(OUTDOOR)
+	!AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
+	!AreaCheck("AR5202") //Forest of Mir (ToB)
+	TimeGT(DAWN_END)
+	TimeLT(DUSK_START)
+	!HasItemEquiped("ohhcloak",Myself)  // Cloak of Dragomir
+	Global("YFBodhiBurns","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiBurns","GLOBAL",1)
+	CreateVisualEffectObject("SPSMKJET",Myself)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",5)
+	Range([PC],3)
+THEN
+	RESPONSE #100
+	TransformItem("YFbohar2","YFbohair")
+	SetDialog("YFBod25p")
+	SetGlobal("YFBodhiBurns","GLOBAL",7)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",7)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+
+//Script for First Hexxat Cloak Talk, next script in Hexxat
+IF
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItemEquiped("ohhcloak","YFBodhi")
+	!HasItem("ohhcloak","Hexxat")
+	Global("YFCloakTalk","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFCloakTalk","GLOBAL",1)
+END
+
+//Script for 2nd Hexxat Cloak Talk
+IF
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItemEquiped("ohhcloak","YFBodhi")
+	HasItemEquiped("ohhcloak","Hexxat")
+	OR(2)
+	Global("YFCloakTalk","GLOBAL",0)
+	Global("YFCloakTalk","GLOBAL",2)
+THEN
+	RESPONSE #100
+	SetGlobal("YFCloakTalk","GLOBAL",3)
+END
+
+IF
+	Global("YFCloakTalk","GLOBAL",3)
+	InParty("YFBodhi")
+	!StateCheck("YFBodhi",CD_STATE_NOTVALID)
+	InParty("HEXXAT")
+	!StateCheck("HEXXAT",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Script when you first summon Bodhi.
+IF
+	IfValidForPartyDialog(Myself)
+	CombatCounter(0)
+	Global("YFBodhiHasSoul","GLOBAL",0)
+	Global("YFBodhiFirstTalk","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiFirstTalk","GLOBAL",1)
+END
+
+IF
+	Global("YFBodhiFirstTalk","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+	
+

@@ -1,0 +1,129 @@
+
+//Baldur scripts for Bodhi turning into mist on death
+IF
+	!InParty("YFBodhi")
+	Global("YFBodhiMist","GLOBAL",2)
+THEN
+	RESPONSE #100
+	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",EIGHT_HOURS)
+	ActionOverride("YFBodhi",ApplySpell(Myself,HEAL_NO_VISUAL))
+	SetGlobal("YFBodhiMist","GLOBAL",3)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",3)
+	GlobalTimerExpired("YFBodhiDieTimer","GLOBAL")
+		OR(6)
+	!AreaType(OUTDOOR)
+	AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
+	AreaCheck("AR5202") //Forest of Mir (ToB)
+	TimeLT(DAWN_END)
+	TimeGT(DUSK_START)
+	HasItemEquiped("ohhcloak","YFBodhi")
+THEN
+	RESPONSE #100
+	MoveGlobalObjectOffScreen("YFBodhi",Player1)
+	SetGlobal("YFBodhiMist","GLOBAL",4)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",4)
+THEN
+	RESPONSE #100
+	SetGlobalTimer("YFBodhiDieFixTimer","GLOBAL",FIVE_MINUTES)
+	SetGlobal("YFBodhiMist","GLOBAL",5)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",5)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",MoveToObject(Player1))
+	SetGlobal("YFBodhiMist","GLOBAL",6)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",6)
+	GlobalTimerExpired("YFBodhiDieFixTimer","GLOBAL")
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiMist","GLOBAL",7)
+END
+
+IF
+	Global("YFBodhiMist","GLOBAL",7)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",SetInterrupt(TRUE))
+	MoveGlobalObjectOffScreen("YFBodhi",Player1)
+	SetGlobal("YFBodhiMist","GLOBAL",4)
+END
+
+
+//Just in case Bodhi somehow dies. This should restart her.
+IF
+	!Global("YFBodhiMist","GLOBAL",2)
+	StateCheck("YFBodhi",STATE_REALLY_DEAD)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",ApplySpell(Myself,CLERIC_RESURRECTION))
+	ActionOverride("YFBodhi",ApplySpellRES("YFbomi25",Myself))
+	ActionOverride("YFBodhi",TransformItem("YFbohair","YFbohar2"))
+	SetGlobal("YFBodhiMist","GLOBAL",2) 
+	SetGlobal("YFBodhiRemoved","GLOBAL",2) 
+	ActionOverride("YFBodhi",LeaveParty())
+	ActionOverride("YFBodhi",EscapeAreaMove("AR4000",771,931,S))
+END
+
+//Baldur scripts for Bodhi leaving if it's sunny.
+IF
+	!InParty("YFBodhi")
+	Global("YFBodhiBurns","GLOBAL",2)
+		OR(6)
+	!AreaType(OUTDOOR)
+	AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
+	AreaCheck("AR5202") //Forest of Mir (ToB)
+	TimeLT(DAWN_END)
+	TimeGT(DUSK_START)
+	HasItemEquiped("ohhcloak","YFBodhi")
+THEN
+	RESPONSE #100
+	MoveGlobalObjectOffScreen("YFBodhi",Player1)
+	SetGlobal("YFBodhiBurns","GLOBAL",3)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",3)
+THEN
+	RESPONSE #100
+	SetGlobalTimer("YFBodhiBurnsFixTimer","GLOBAL",FIVE_MINUTES)
+	SetGlobal("YFBodhiBurns","GLOBAL",4)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",4)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",MoveToObject(Player1))
+	SetGlobal("YFBodhiBurns","GLOBAL",5)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",5)
+	GlobalTimerExpired("YFBodhiBurnsFixTimer","GLOBAL")
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiBurns","GLOBAL",6)
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",6)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",SetInterrupt(TRUE))
+	MoveGlobalObjectOffScreen("YFBodhi",Player1)
+	SetGlobal("YFBodhiBurns","GLOBAL",3)
+END
+	
+
+

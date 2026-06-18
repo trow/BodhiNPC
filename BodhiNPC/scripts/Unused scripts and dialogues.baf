@@ -1,0 +1,130 @@
+
+//If you find Bodhi before the timer up in the pocket plane. YFBod25p.d
+
+APPEND YFBod25P IF ~Global("YFBodhiMist","GLOBAL",4)~ THEN BEGIN YFbodhimistturn1
+SAY @0 /*You have survived. Shall we resume our travels?*/
+	++ @1 /*Yes.*/ DO ~SetGlobal("YFBodhiMist","GLOBAL",0) JoinParty()~ EXIT
+	++ @2 /*No, just wait here.*/ EXIT 
+	END
+END
+
+//ALways true dialogue YFBod25.p
+APPEND YFBod25P IF ~True()~ THEN YFbodhiptruetalk
+	SAY @7 /*Finally. I was beginning to hunger. Shall we resume our travels?*/
+	++ @1 /*Yes.*/ DO ~SetGlobal("YFBodhiRemoved","GLOBAL",0) JoinParty()~ EXIT
+	++ @2 /*No, just wait here.*/ EXIT 
+	END
+END
+
+//If you remove Bodhi from your party after she's burned. YFmiba25.baf
+
+IF
+	!InParty("YFBodhi")
+	Global("YFBodhiBurns","GLOBAL",3)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",TransformItem("YFbohar2","YFbohair"))
+	ActionOverride("YFBodhi",ApplySpell(Myself,CLERIC_RESURRECTION))
+	SetGlobal("YFBodhiMist","GLOBAL",2)
+	SetGlobal("YFBodhiBurns","GLOBAL",0)
+END
+
+
+//When inside after Bodhi has burned. YFmiba25.baf
+IF
+	OR(4)
+	!AreaType(OUTDOOR)
+	AreaCheck("ar1404") //Shadow Temple Land shadowed
+	TimeLT(DAWN_END)
+	TimeGT(DUSK_START)
+	Global("YFBodhiBurns","GLOBAL",3)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",JoinParty())
+	ActionOverride("YFBodhi",TransformItem("YFbohar2","YFbohair"))
+	ActionOverride("YFBodhi",ApplySpell(Myself,CLERIC_RESURRECTION))
+	ActionOverride("YFBodhi",Polymorph(BLOB_MIST_CREATURE))
+	Wait(5)
+	SetGlobal("YFBodhiBurns","GLOBAL",4)
+END
+
+
+
+//dialogue for Bodhi burning. YFBod25j.d
+APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",1)~ THEN BEGIN YFbodhiburntalk1
+SAY @1 /*I burn! I will hide near your skin until the cursed sun is less bright.*/
+	IF ~~ THEN DO ~TransformItem("YFbohair","YFbohar2") ApplySpellRES("YFbomi25",Myself) Polymorph(BLOB_MIST_CREATURE) ApplySpell(Myself,HEAL_NO_VISUAL) SetGlobal("YFBodhiBurns","GLOBAL",2)~ EXIT
+	END
+END
+
+APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",4)~ THEN BEGIN YFbodhiburntalk4
+SAY @2 /*Finally, I am free! It is torture to be so close to flesh yet unable to taste it.*/
+	IF ~~ THEN DO ~SetGlobal("YFBodhiBurns","GLOBAL",0)~ EXIT
+	END
+END
+
+//Script for being in the sun. YFBod25.baf
+IF
+	AreaType(OUTDOOR)
+	!AreaCheck("ar1404") //Shadow Temple Land shadowed
+	TimeGT(DAWN_END)
+	TimeLT(DUSK_START)
+	!HasItemEquiped("ohhcloak",Myself)  // Cloak of Dragomir
+	Global("YFBodhiBurns","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiBurns","GLOBAL",1)
+	CreateVisualEffectObject("SPSMKJET",Myself)
+	StartDialogNoSet(Player1)
+END
+
+
+
+IF
+	Global("YFBodhiBurns","GLOBAL",2)
+	Range([PC],3)
+	InParty(Myself)
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiBurns","GLOBAL",3)
+	Kill("YFBodhi")
+	SetGlobal("SPRITE_IS_DEADYFCLARA","GLOBAL",0)
+	DestroySelf()
+	JoinParty()
+END
+
+IF
+	Global("YFBodhiBurns","GLOBAL",4)
+THEN
+	RESPONSE #100
+	ApplySpellRES("YFbomi25",Myself)
+	Polymorph(BODHI)
+	StartDialogNoSet(Player1)
+END
+
+//Unused Bodhi death script YFmiba25.baf
+IF
+	Global("YFBodhiMist","GLOBAL",2)
+THEN
+	RESPONSE #100
+	ActionOverride("YFBodhi",SetGlobal("YFBodhiMist","GLOBAL",3))
+	EscapeAreaMove("AR4500",1615,1679,S)
+END
+
+//Unused Bodhi death script YFBod25.baf
+IF
+	!Global("YFBodhiMist","GLOBAL",2)
+	StateCheck(Myself,STATE_REALLY_DEAD)
+	InParty()
+THEN
+	RESPONSE #100
+	ApplySpell(Myself,CLERIC_RESURRECTION)
+	ApplySpellRES("YFbomi25",Myself) 
+	TransformItem("YFbohair","YFbohar2") 
+	SetGlobal("YFBodhiMist","GLOBAL",2) 
+	SetGlobal("YFBodhiRemoved","GLOBAL",2) 
+	LeaveParty() 
+	EscapeAreaMove("AR4000",771,931,S)
+END
+
+
