@@ -54,20 +54,20 @@ BUT_ONLY_IF_IT_CHANGES //This stops Weidu from repeating the action if another m
 
 //Dialogue Files
    ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSON.dlg~) THEN BEGIN
-   COMPILE ~BodhiNPC/dialogues/goodevil/BWILSONFix.d~
+   COMPILE ~BodhiNPC/dialogues/BWILSONFix.d~
   END
    ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSO25.dlg~) THEN BEGIN
-   COMPILE ~BodhiNPC/dialogues/goodevil/BWILSO25Fix.d~
+   COMPILE ~BodhiNPC/dialogues/BWILSO25Fix.d~
   END
     ACTION_IF NOT (FILE_EXISTS_IN_GAME ~WILSO25J.dlg~) THEN BEGIN
-   COMPILE ~BodhiNPC/dialogues/goodevil/WILSO25JFix.d~
+   COMPILE ~BodhiNPC/dialogues/WILSO25JFix.d~
   END
 END
 
 TOB Script
 ACTION_IF NOT (FILE_EXISTS_IN_GAME ~Wilson25.bcs~) THEN BEGIN
   PRINT @138 /*Wilson has no ToB override script? That must be changed!*/
-  COMPILE ~BodhiNPC/scripts/crossmod/wilson25.baf~
+  COMPILE ~BodhiNPC/scripts/wilson25.baf~
 END
 
 COPY_EXISTING ~Wilson13.cre~ ~override~ // Wilson version summoned by Fate Spirit in new ToB game (this version will NOT be summoned in EET if Wilson was with the party in SoA)
