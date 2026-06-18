@@ -1,6 +1,6 @@
-# Bodhi of the Falling Leaves
+# Bodhi of the Fallen Leaves
 
-**Bodhi NPC - Standalone Version for BG2EE & EET**
+**Bodhi NPC Mos for BG2EE & EET**
 
 ---
 
@@ -79,18 +79,18 @@ We are deeply grateful to **Ratatoskr** and **BCaesar** for their original work 
 
 **CROSSMOD**
 
-You may freely do crossmod content with Bodhi of the Falling Leaves Mod if you include attribution to Bodhi of the Falling Leaves Mod in your documentation.
+You may freely do crossmod content with Bodhi of the Fallen Leaves Mod if you include attribution to Bodhi of the Fallen Leaves Mod in your documentation.
 
 **MOD LICENSE**
 
-Bodhi of the Falling Leaves Mod does not use a traditional formal license such as [Creative Commons](https://creativecommons.org/share-your-work/cclicenses/) nor [MIT](https://opensource.org/license/mit); however, it uses a similar license as described here:
+Bodhi of the Fallen Leaves Mod does not use a traditional formal license such as [Creative Commons](https://creativecommons.org/share-your-work/cclicenses/) nor [MIT](https://opensource.org/license/mit); however, it uses a similar license as described here:
 
 - All work you do with this is for non-commercial purposes.
 
-- You may use code from Bodhi of the Falling Leaves Mod in your works if you include attribution to Bodhi of the Falling Leaves Mod in your documentation and you notify at least one of the authors of Bodhi of the Falling Leaves Mod in the [project thread](https://trow.cc/board/showtopic=53570) or directly by other means regarding what code portions you used.
+- You may use code from Bodhi of the Fallen Leaves Mod in your works if you include attribution to Bodhi of the Fallen Leaves Mod in your documentation and you notify at least one of the authors of Bodhi of the Fallen Leaves Mod in the [project thread](https://trow.cc/board/showtopic=53570) or directly by other means regarding what code portions you used.
 
-- You may do crossmod with Bodhi of the Falling Leaves Mod as described above.
+- You may do crossmod with Bodhi of the Fallen Leaves Mod as described above.
 
 ---
 
-*"The falling leaves whisper of power long denied..."*
+*"The Fallen leaves whisper of power long denied..."*
