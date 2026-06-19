@@ -87,7 +87,7 @@ Bodhi of the Fallen Leaves Mod does not use a traditional formal license such as
 
 - All work you do with this is for non-commercial purposes.
 
-- You may use code from Bodhi of the Fallen Leaves Mod in your works if you include attribution to Bodhi of the Fallen Leaves Mod in your documentation and you notify at least one of the authors of Bodhi of the Fallen Leaves Mod in the [project thread](https://trow.cc/board/showtopic=53570) or directly by other means regarding what code portions you used.
+- You may use code from Bodhi of the Fallen Leaves Mod in your works if you include attribution to Bodhi of the Fallen Leaves Mod in your documentation and you notify at least one of the authors of Bodhi of the Fallen Leaves Mod in the [project thread](https://trow.cc/board/showtopic=54052) or directly by other means regarding what code portions you used.
 
 - You may do crossmod with Bodhi of the Fallen Leaves Mod as described above.
 
