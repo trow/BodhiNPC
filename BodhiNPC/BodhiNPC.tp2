@@ -271,19 +271,19 @@ COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues~
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhi.baf~
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhid.baf~
 EXTEND_BOTTOM ~baldur.bcs~ ~BodhiNPC/scripts/YFmisbak.baf~ EVALUATE_BUFFER
-COMPILE ~BodhiNPC/scripts/YFBod25.baf~
-COMPILE ~BodhiNPC/scripts/YFBod25d.baf~
-EXTEND_BOTTOM ~baldur25.bcs~ ~BodhiNPC/scripts/YFmiba25.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBod25.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBod25d.baf~
+EXTEND_BOTTOM ~baldur25.bcs~ ~BodhiNPC/scripts/YFmiba25.baf~ EVALUATE_BUFFER
 EXTEND_BOTTOM ~hexxat.bcs~ ~BodhiNPC/scripts/YFhexxat.baf~  EVALUATE_BUFFER
 EXTEND_BOTTOM ~hexxa25.bcs~ ~BodhiNPC/scripts/YFhexxattob.baf~ EVALUATE_BUFFER
 
 //Bodhi Elf
-COMPILE ~BodhiNPC/scripts/YFBoElfd.baf~
-COMPILE ~BodhiNPC/scripts/YFBodElf.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBoElfd.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodElf.baf~
 
 //Bodhi SoA Cutscenes
-COMPILE ~BodhiNPC/scripts/YFBoJoin.baf~
-COMPILE ~BodhiNPC/scripts/YFBoTran.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBoJoin.baf~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBoTran.baf~
 
 //Scripts to turn Bodhi's people in her lair to your allies after she joins you.
 EXTEND_TOP ~vampir01.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
@@ -404,7 +404,7 @@ COPY_EXISTING ~baldur.bcs~ ~override~
 BUT_ONLY_IF_IT_CHANGES  //To stop this from happening endlessly
 
 //Epilogues
-EXTEND_TOP ~AR6200.bcs~ ~BodhiNPC/scripts/YFAR6200.baf~
+EXTEND_TOP ~AR6200.bcs~ ~BodhiNPC/scripts/YFAR6200.baf~ EVALUATE_BUFFER 
 
 //Bodhi Vampire
 COPY ~BodhiNPC/epilogue/YFBodV.2da~ ~override/YFBodV1.2da~ //Vampire (all)
@@ -416,16 +416,16 @@ REPLACE ~99999~ @136
 
 //Crossmod files for Clara only
 // ----- Clara 的跨 Mod (Crossmod) 内容 -----
-// 检查游戏中是否存在 Saradas NPC 的角色文件 (!sartob.cre)。
-// 这通常意味着 Saradas NPC Mod 已安装。
-ACTION_IF FILE_EXISTS_IN_GAME ~YF_Clara.cre~ THEN BEGIN //This code detects the Saradas NPC and adds his banters with Clara
-    // 如果检测到 Saradas，则打印信息。
+// 检查游戏中是否存在 Clara NPC 的角色文件 (!sartob.cre)。
+// 这通常意味着 Clara NPC Mod 已安装。
+ACTION_IF FILE_EXISTS_IN_GAME ~YF_Clara.cre~ THEN BEGIN //This code detects the Clara NPC and adds his banters with Bodhi
+    // 如果检测到 Clara，则打印信息。
  PRINT @150
-     // 编译 Clara 与 Saradas 之间的互动对话文件。
-OUTER_SET YFBodhiJoinsSoA5STATE = STATE_WHICH_SAYS 21 IN ~BodhiNPC\translations\%s\YFBodhi.tra~ FROM ~C6BODHI~
- COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/YFBodhi.d~ 
- COMPILE ~BodhiNPC/crossmod/bYFBodhi.d~ 
- COMPILE ~BodhiNPC/crossmod/bYFBod25.d~ 
-END ELSE BEGIN    // 如果未检测到 Saradas，则打印信息。
+     // 编译 Clara 与 Bodhi 之间的互动对话文件。
+OUTER_SET YFBodhiJoinsSoA5STATE = STATE_WHICH_SAYS 21 IN ~BodhiNPC/translations/%s/YFBodhi.tra~ FROM ~C6BODHI~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/YFBodhi.d~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/bYFBodhi.d~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/bYFBod25.d~ 
+END ELSE BEGIN    // 如果未检测到 Clara，则打印信息。
  PRINT @151
-END // 结束 Saradas 不存在的处理块。
+END // 结束 Clara 不存在的处理块。
