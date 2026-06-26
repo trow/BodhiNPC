@@ -266,7 +266,37 @@ APPEND ~interdia.2da~ //For Bodhi.
 APPEND ~interdia.2da~ //For Bodhi-Elf.
 ~YFBodElf     bYFBoElf     bYFBoElf~
 
-COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues~
+
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBod25.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBod25j.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBod25p.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBodElf.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBodhij.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBodhip.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBodhi.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBoElfj.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFBoElfp.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFworkingbodhi.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFbodhiconflicts.d~
+COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/YFbodhiinterjections.d~
+//Crossmod files for Clara only
+// ----- Clara 的跨 Mod (Crossmod) 内容 -----
+// 检查游戏中是否存在 Clara NPC 的角色文件 (!sartob.cre)。
+// 这通常意味着 Clara NPC Mod 已安装。
+ACTION_IF FILE_EXISTS_IN_GAME ~YF_Clara.cre~ THEN BEGIN //This code detects the Clara NPC and adds his banters with Bodhi
+    // 如果检测到 Clara，则打印信息。
+ PRINT @150
+     // 编译 Clara 与 Bodhi 之间的互动对话文件。
+OUTER_SET YFBodhiJoinsSoA5STATE = STATE_WHICH_SAYS 21 IN ~BodhiNPC/translations/%s/YFBodhi.tra~ FROM ~C6BODHI~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/YFBodhi.d~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/bYFBodhi.d~
+ COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/bYFBod25.d~ 
+END ELSE BEGIN    // 如果未检测到 Clara，则打印信息。
+ PRINT @151
+	COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/bYFBodhi.d~
+	COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/bYFBod25.d~
+END // 结束 Clara 不存在的处理块。
+
 
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhi.baf~
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhid.baf~
@@ -413,19 +443,3 @@ REPLACE ~99999~ @135
 //Bodhi Elf
 COPY ~BodhiNPC/epilogue/YFBodE.2da~ ~override/YFBodE1.2da~ //Elf (all)
 REPLACE ~99999~ @136
-
-//Crossmod files for Clara only
-// ----- Clara 的跨 Mod (Crossmod) 内容 -----
-// 检查游戏中是否存在 Clara NPC 的角色文件 (!sartob.cre)。
-// 这通常意味着 Clara NPC Mod 已安装。
-ACTION_IF FILE_EXISTS_IN_GAME ~YF_Clara.cre~ THEN BEGIN //This code detects the Clara NPC and adds his banters with Bodhi
-    // 如果检测到 Clara，则打印信息。
- PRINT @150
-     // 编译 Clara 与 Bodhi 之间的互动对话文件。
-OUTER_SET YFBodhiJoinsSoA5STATE = STATE_WHICH_SAYS 21 IN ~BodhiNPC/translations/%s/YFBodhi.tra~ FROM ~C6BODHI~
- COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/YFBodhi.d~
- COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/bYFBodhi.d~
- COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/bYFBod25.d~ 
-END ELSE BEGIN    // 如果未检测到 Clara，则打印信息。
- PRINT @151
-END // 结束 Clara 不存在的处理块。
