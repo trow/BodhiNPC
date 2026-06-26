@@ -8,4 +8,3 @@ Wait(2)
 CreateCreature("YFBod25",[1999.1228],0) 
 SetGlobal("YFBodhiSummoned","GLOBAL",1)~ GOTO 8
 END
-

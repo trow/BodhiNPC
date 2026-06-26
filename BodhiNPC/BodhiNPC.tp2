@@ -41,39 +41,39 @@ DESIGNATED 0 LABEL ~Bodhi-main~
 APPEND ~STATE.IDS~ ~0x80101FEF CD_STATE_NOTVALID~
 UNLESS ~CD_STATE_NOTVALID~	
 
-//Code to give Wilson proper dialogue files, courtesy of LavaDelVortel so our mods don't conflict
-ACTION_IF FILE_EXISTS_IN_GAME ~wilson.dlg~ THEN BEGIN
- PRINT @137 /*Wilson detected - Wilson interdia.2da append - set Wilsons's banter file (BWILSON & BWILSO25)*/ //PRINT ~~ lets you add visible text to the Weidu setup. Can be tra-ified just like anything else.
-    APPEND ~interdia.2da~ ~WILSON BWILSON BWILSO25~
-    UNLESS ~WILSON~
-	
-	COPY_EXISTING ~pdialog.2da~ ~override~
-  REPLACE_TEXTUALLY ~^[ %TAB%]*WILSON[ %TAB%].+$~
-                    ~WILSON                 WILSONP                WILSONJ                WILSOND                WILSO25P               WILSO25J               WILSO25D               WILSON25~
-BUT_ONLY_IF_IT_CHANGES //This stops Weidu from repeating the action if another mod already installed Wilson's files
-
-//Dialogue Files
-   ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSON.dlg~) THEN BEGIN
-   COMPILE ~BodhiNPC/dialogues/BWILSONFix.d~
-  END
-   ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSO25.dlg~) THEN BEGIN
-   COMPILE ~BodhiNPC/dialogues/BWILSO25Fix.d~
-  END
-    ACTION_IF NOT (FILE_EXISTS_IN_GAME ~WILSO25J.dlg~) THEN BEGIN
-   COMPILE ~BodhiNPC/dialogues/WILSO25JFix.d~
-  END
-END
-
-TOB Script
-ACTION_IF NOT (FILE_EXISTS_IN_GAME ~Wilson25.bcs~) THEN BEGIN
-  PRINT @138 /*Wilson has no ToB override script? That must be changed!*/
-  COMPILE ~BodhiNPC/scripts/wilson25.baf~
-END
-
-COPY_EXISTING ~Wilson13.cre~ ~override~ // Wilson version summoned by Fate Spirit in new ToB game (this version will NOT be summoned in EET if Wilson was with the party in SoA)
-  WRITE_EVALUATED_ASCII DIALOG          ~WILSON25~ #8
-  WRITE_EVALUATED_ASCII SCRIPT_OVERRIDE ~WILSON25~ #8
-  ADD_CRE_ITEM ~L#wilroc~ #1 #0 #0 ~identified~ ~qitem~ // missed quest reward from SoA
+////Code to give Wilson proper dialogue files, courtesy of LavaDelVortel so our mods don't conflict
+//ACTION_IF FILE_EXISTS_IN_GAME ~wilson.dlg~ THEN BEGIN
+// PRINT @137 /*Wilson detected - Wilson interdia.2da append - set Wilsons's banter file (BWILSON & BWILSO25)*/ //PRINT ~~ lets you add visible text to the Weidu setup. Can be tra-ified just like anything else.
+//    APPEND ~interdia.2da~ ~WILSON BWILSON BWILSO25~
+//    UNLESS ~WILSON~
+//	
+//	COPY_EXISTING ~pdialog.2da~ ~override~
+//  REPLACE_TEXTUALLY ~^[ %TAB%]*WILSON[ %TAB%].+$~
+//                    ~WILSON                 WILSONP                WILSONJ                WILSOND                WILSO25P               WILSO25J               WILSO25D               WILSON25~
+//BUT_ONLY_IF_IT_CHANGES //This stops Weidu from repeating the action if another mod already installed Wilson's files
+//
+////Dialogue Files
+//   ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSON.dlg~) THEN BEGIN
+//   COMPILE ~BodhiNPC/dialogues/BWILSONFix.d~
+//  END
+//   ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSO25.dlg~) THEN BEGIN
+//   COMPILE ~BodhiNPC/dialogues/BWILSO25Fix.d~
+//  END
+//    ACTION_IF NOT (FILE_EXISTS_IN_GAME ~WILSO25J.dlg~) THEN BEGIN
+//   COMPILE ~BodhiNPC/dialogues/WILSO25JFix.d~
+//  END
+//END
+//
+////TOB Script
+//ACTION_IF NOT (FILE_EXISTS_IN_GAME ~Wilson25.bcs~) THEN BEGIN
+//  PRINT @138 /*Wilson has no ToB override script? That must be changed!*/
+//  COMPILE ~BodhiNPC/scripts/wilson25.baf~
+//END
+//
+//COPY_EXISTING ~Wilson13.cre~ ~override~ // Wilson version summoned by Fate Spirit in new ToB game (this version will NOT be summoned in EET if Wilson was with the party in SoA)
+//  WRITE_EVALUATED_ASCII DIALOG          ~WILSON25~ #8
+//  WRITE_EVALUATED_ASCII SCRIPT_OVERRIDE ~WILSON25~ #8
+//  ADD_CRE_ITEM ~L#wilroc~ #1 #0 #0 ~identified~ ~qitem~ // missed quest reward from SoA
   
   
 //This code adds scriptnames to several NPCs that lack them in the normal game. This can cause issues with any other mods that try to do the same, so use sparingly. These scriptnames will only appear on newly created characters, so they will not appear if you install the mod mid-game.
@@ -273,8 +273,9 @@ COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhid.baf~
 EXTEND_BOTTOM ~baldur.bcs~ ~BodhiNPC/scripts/YFmisbak.baf~ EVALUATE_BUFFER
 COMPILE ~BodhiNPC/scripts/YFBod25.baf~
 COMPILE ~BodhiNPC/scripts/YFBod25d.baf~
-COMPILE ~BodhiNPC/scripts/YFBod25d.baf~
 EXTEND_BOTTOM ~baldur25.bcs~ ~BodhiNPC/scripts/YFmiba25.baf~
+EXTEND_BOTTOM ~hexxat.bcs~ ~BodhiNPC/scripts/YFhexxat.baf~  EVALUATE_BUFFER
+EXTEND_BOTTOM ~hexxa25.bcs~ ~BodhiNPC/scripts/YFhexxattob.baf~ EVALUATE_BUFFER
 
 //Bodhi Elf
 COMPILE ~BodhiNPC/scripts/YFBoElfd.baf~
@@ -295,6 +296,7 @@ EXTEND_TOP ~Vampano.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
 EXTEND_TOP ~Vampjah.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
 EXTEND_TOP ~Vampvic.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
 EXTEND_TOP ~WDASIGHT.bcs~ ~BodhiNPC/scripts/YFbolair.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~c6elhan.bcs~ ~BodhiNPC/scripts/YFc6elhan.baf~ EVALUATE_BUFFER
 
 //Code to add Bodhi's items. These are what gives her all her cool vampire powers.
 COPY ~BodhiNPC/items/YFBOCLAW.itm~ ~override~
@@ -389,7 +391,7 @@ ACTION_IF GAME_IS ~eet~ THEN BEGIN
   END
   
  END ELSE BEGIN //different Fate Spirit dialogue patching for any other platform than EET
-  COMPILE ~BodhiNPC/dialogues/YFFateSpBodhi.d~ USING ~BodhiNPC/translations/%LANGUAGE%/YFFateSpBodhi.tra~ //Other Fate Spirit dialogue, this says to use same tra as TOB file
+  COMPILE ~BodhiNPC/dialogues/YFFateSpBodhi.d~//Other Fate Spirit dialogue, this says to use same tra as TOB file
 END
 
 //Code to make Malchor Harpell not come back after you kill him.
@@ -401,6 +403,8 @@ COPY_EXISTING ~baldur.bcs~ ~override~
   COMPILE_BAF_TO_BCS //This code then recompiles the file into a game file
 BUT_ONLY_IF_IT_CHANGES  //To stop this from happening endlessly
 
+//Epilogues
+EXTEND_TOP ~AR6200.bcs~ ~BodhiNPC/scripts/YFAR6200.baf~
 
 //Bodhi Vampire
 COPY ~BodhiNPC/epilogue/YFBodV.2da~ ~override/YFBodV1.2da~ //Vampire (all)

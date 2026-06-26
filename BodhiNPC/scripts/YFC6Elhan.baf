@@ -1,0 +1,16 @@
+//Talking to CN after you get Bodhi in your party.
+IF
+	IfValidForPartyDialog("YFBodhi")
+	Global("YFc6ElhanBodhiTalk","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("YFc6ElhanBodhiTalk","GLOBAL",1)
+END
+
+IF
+	See([PC])
+	Global("YFc6ElhanBodhiTalk","GLOBAL",1)
+THEN
+	RESPONSE #100
+	StartDialog("c6Elhan2",[PC])
+END

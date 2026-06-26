@@ -39,9 +39,9 @@ DO ~ActionOverride("HEXXAT",TakePartyItem("ohhcloak")) XEquipItem("ohhcloak","YF
 EXIT
 
 //2nd Hexxat Talk
-CHAIN IF WEIGHT #-1 ~Global("YFCloakTalk","GLOBAL",3)~ THEN YFBodhij YFDoubleMintTwins
+CHAIN IF WEIGHT #-1 ~Global("YFCloakTalk","GLOBAL",5)~ THEN YFBodhij YFDoubleMintTwins
 @15 /*It seems that Dragomir's cloak is not as unique as I thought.*/
-DO ~SetGlobal("YFCloakTalk","GLOBAL",4)~
+DO ~SetGlobal("YFCloakTalk","GLOBAL",6)~
 	== HEXXATJ @16 /*He was a large vampire. When I had an opportunity, I recut his cloak and made two. I did not need the spare until now.*/
 	= @17 /*It is clear that <CHARNAME> relies on you. I will have to accept your company as well.*/
 EXIT

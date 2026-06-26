@@ -1,0 +1,26 @@
+//BodhiEpilogues
+//Vampire
+IF
+	Global("StartEndBios","AR6200",1)  // The Throne of Bhaal
+	InParty("YFBodhi")  //Bodhi
+	Global("YFBodhiVBio","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("YFBodhiVBio","GLOBAL",1)
+		TextScreen("YFBodV1")
+		SmallWait(1)
+		Continue()
+END
+
+//Elf
+IF
+	Global("StartEndBios","AR6200",1)  // The Throne of Bhaal
+	InParty("YFBodElf")  //Bodhi Elf
+	Global("YFBodhiEBio","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("YFBodhiEBio","GLOBAL",1)
+		TextScreen("YFBodE1")
+		SmallWait(1)
+		Continue()
+END

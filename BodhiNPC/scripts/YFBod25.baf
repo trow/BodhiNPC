@@ -123,24 +123,11 @@ END
 
 //Script for 2nd Hexxat Cloak Talk
 IF
+	Global("YFCloakTalk","GLOBAL",5)
 	InParty("YFBodhi")
 	InParty("HEXXAT")
-	HasItemEquiped("ohhcloak","YFBodhi")
-	HasItemEquiped("ohhcloak","Hexxat")
-	OR(2)
-	Global("YFCloakTalk","GLOBAL",0)
-	Global("YFCloakTalk","GLOBAL",2)
-THEN
-	RESPONSE #100
-	SetGlobal("YFCloakTalk","GLOBAL",3)
-END
-
-IF
-	Global("YFCloakTalk","GLOBAL",3)
-	InParty("YFBodhi")
-	!StateCheck("YFBodhi",CD_STATE_NOTVALID)
-	InParty("HEXXAT")
-	!StateCheck("HEXXAT",CD_STATE_NOTVALID)
+	HasItem("ohhcloak","YFBodhi")
+	HasItem("ohhcloak","Hexxat")
 THEN
 	RESPONSE #100
 	StartDialogNoSet(Player1)

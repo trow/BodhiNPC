@@ -1,0 +1,53 @@
+//Trigger for 1st Hexxat-Bodhi talk
+IF
+	Global("YFCloakTalk","GLOBAL",1)
+	InParty("YFBodhi")
+	!StateCheck("YFBodhi",CD_STATE_NOTVALID)
+	InParty("HEXXAT")
+	!StateCheck("HEXXAT",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+	StartDialogNoSet(Player1)
+END
+
+//Hexxat-Bodhi Cloak Timer
+IF
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItem("ohhcloak","YFBodhi")
+	!HasItem("ohhcloak","Hexxat")
+	Global("YFCloakTalk","GLOBAL",2) 
+THEN
+	RESPONSE #100
+	IncrementGlobal("YFCloakTalk","GLOBAL",1)
+	SetGlobalTimer("YFCloakTalkTimer","GLOBAL",THREE_DAYS)
+END
+
+//Second Timer if normal trigger requirements
+IF
+	GlobalTimerExpired("YFCloakTalkTimer","GLOBAL")
+	Global("YFCloakTalk","GLOBAL",3)
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItem("ohhcloak","YFBodhi")
+	!HasItem("ohhcloak","Hexxat")
+THEN
+	RESPONSE #100
+	IncrementGlobal("YFCloakTalk","GLOBAL",1)
+END
+
+//Script for 2nd Hexxat Cloak Talk
+IF
+	PartyRested()
+	Global("YFCloakTalk","GLOBAL",4)
+	InParty("YFBodhi")
+	InParty("HEXXAT")
+	HasItem("ohhcloak","YFBodhi")
+	!HasItem("ohhcloak","Hexxat")
+THEN
+	RESPONSE #100
+	ActionOverride("Hexxat",CreateItem("ohhcloak",0,0,0)
+	ActionOverride("Hexxat",XEquipItem("ohhcloak",Myself,SLOT_CLOAK,EQUIP))
+	IncrementGlobal("YFCloakTalk","GLOBAL",1)
+END
+
