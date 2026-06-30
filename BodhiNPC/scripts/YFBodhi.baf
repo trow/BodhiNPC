@@ -40,6 +40,7 @@ IF
 	TimeGT(DAWN_END)
 	TimeLT(DUSK_START)
 	!HasItemEquiped("ohhcloak",Myself)  // Cloak of Dragomir
+	!HasItemEquiped("yfbcloak",Myself)
 	Global("YFBodhiBurns","GLOBAL",0)
 THEN
 	RESPONSE #100
@@ -88,7 +89,7 @@ IF
 	Global("YFCloakTalk","GLOBAL",5)
 	InParty("YFBodhi")
 	InParty("HEXXAT")
-	HasItem("ohhcloak","YFBodhi")
+	HasItem("yfbcloak","YFBodhi")
 	HasItem("ohhcloak","Hexxat")
 THEN
 	RESPONSE #100
@@ -106,10 +107,49 @@ THEN
 	Continue()
 END
 
+IF
+	!HasItem("YFBCASK",Myself)
+	!HasItem("YFBCASK2",Myself)
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+	Global("YFCASKTalk","GLOBAL",0)
+	InParty("YFBodhi")
+THEN
+    RESPONSE #100
+	SetGlobalTimer("YFCloakTalkTimer","GLOBAL",SEVEN_DAYS)
+	StartDialogNoSet(Player1)
+END
+
+IF
+	!HasItem("YFBCASK",Myself)
+	!HasItem("YFBCASK2",Myself)
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+	Global("YFCASKTalk","GLOBAL",1)
+	InParty("YFBodhi")
+	PartyRested()
+	GlobalTimerExpired("YFCloakTalkTimer","GLOBAL")
+THEN
+    RESPONSE #100
+	StartDialogNoSet(Player1)
+	IncrementGlobal("YFCASKTalk","GLOBAL",1)
+END
+
+IF
+	OR(2)
+		HasItem("YFBCASK",Myself)
+		HasItem("YFBCASK2",Myself)
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+THEN
+    RESPONSE #100
+        GiveItem("ohhbag",Player1)  // 德拉戈米尔的憩袋
+        DisplayStringHead(Myself,@81936)  // 我需要你帮我保存这个。
+END
+
+
 //Script for giving the Cloak of Dragomir to Bodhi
 IF
 	Global("YFBodhihasCloakofDragomir","GLOBAL",1)
 	!HasItem("OHHCLOAK",Myself)
+	!HasItem("YFBCLOAK",Myself)
 	Global("YFBodhigetsCloakofDragomir","GLOBAL",0)
 THEN
 	RESPONSE #100

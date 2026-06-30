@@ -401,6 +401,51 @@ STATISTICS:
 
 Weight: 0*/
 
+COPY ~BodhiNPC/items/YFBCASK.ITM~ ~override~
+SAY NAME1 @80
+SAY NAME2 @80
+SAY DESC @81
+
+COPY ~BodhiNPC/items/YFBCASK2.ITM~ ~override~
+SAY NAME1 @82
+SAY NAME2 @82
+SAY DESC @83
+
+	ACTION_IF !FILE_EXISTS ~luaAuto.cfg~ BEGIN
+		COPY ~BodhiNPC/items/luaAuto.cfg~ ~luaAuto.cfg~
+	END
+
+  	<<<<<<<< .../StoreItemYF_cask2Select.LUA
+local old = CScreenStore.SelectStoreItem
+CScreenStore.SelectStoreItem = function(self, nIndex, bSelected)
+    if store.storeItems[nIndex + 1].item.res == "YFBCASK" then return end
+    old(self, nIndex, bSelected)
+end
+	>>>>>>>>
+
+  	ACTION_IF !FILE_CONTAINS ~luaAuto.cfg~ ~"YFBCASK"~ BEGIN
+  		COPY_EXISTING ~luaAuto.cfg~ ~luaAuto.cfg~
+  		APPEND_FILE ~.../StoreItemYF_cask2Select.LUA~
+  	END
+
+  	<<<<<<<< .../StoreItemYF_cask2Select.LUA
+local old = CScreenStore.SelectStoreItem
+CScreenStore.SelectStoreItem = function(self, nIndex, bSelected)
+    if store.storeItems[nIndex + 1].item.res == "YFBCASK2" then return end
+    old(self, nIndex, bSelected)
+end
+	>>>>>>>>
+
+  	ACTION_IF !FILE_CONTAINS ~luaAuto.cfg~ ~"YFBCASK2"~ BEGIN
+  		COPY_EXISTING ~luaAuto.cfg~ ~luaAuto.cfg~
+  		APPEND_FILE ~.../StoreItemYF_cask2Select.LUA~
+  	END
+
+COPY ~BodhiNPC/items/YFBcloak.ITM~ ~override~
+SAY NAME1 @78
+SAY NAME2 @78
+SAY DESC @79
+
 // EET related code & summoning script
 ACTION_IF GAME_IS ~eet~ THEN BEGIN 
   INCLUDE ~EET/other/EET_functions.tph~ //declaration of external EET functions used below

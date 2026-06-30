@@ -35,7 +35,7 @@ EXIT
 
 CHAIN YFBodhij YFBodhiSad
 @14 /*You give it to me only to ask for its return? My heart is broken, <CHARNAME>. With the sun denied me, I will sulk in the dark.*/
-DO ~ActionOverride("HEXXAT",TakePartyItem("ohhcloak")) XEquipItem("ohhcloak","YFBodhi",SLOT_CLOAK,EQUIP)~
+DO ~ActionOverride("HEXXAT",TakePartyItem("ohhcloak")) XEquipItem("ohhcloak","HEXXAT",SLOT_CLOAK,EQUIP)~
 EXIT
 
 //2nd Hexxat Talk
@@ -64,6 +64,16 @@ END
 CHAIN YFBodhij YFBodhiDeadLoverTalk2
 	@24 /*After I acquired Imoen's soul, I researched my condition to see if I could remove my vampirism and become an elf once again.*/
 	= @25 /*You will find the results of my research in a chest of tomes in yonder room.*/
+EXIT
+
+//1st Bodhi bag talk
+CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",0) InParty("YFBodhi")~ THEN YFBod25j YFBodhiGetBag
+@18 /*这个袋子看起来有点意思，我得好好研究一下。*/DO ~SetGlobal("YFCASKTalk","GLOBAL",1)~
+EXIT
+
+//2nd Bodhi bag talk
+CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",1) InParty("YFBodhi")~ THEN YFBod25j YFBodhiSetCask
+@19 /*趁着你休息的时候，我放了一口新棺材在这个袋子里，这样以后我就不用跑太远了。*/ DO ~SetGlobal("YFCASKTalk","GLOBAL",2) AddStoreItem("OHHBAG","YFBCASK",0,0)~
 EXIT
 
 //Second Dead Lover Talk (After you have books)
@@ -286,9 +296,3 @@ CHAIN IF WEIGHT #-1 ~PartyHasItem("C6LANTHO") Global("YFc6ElhanBodhiTalk","GLOBA
 END
 	++ @118 /*Here you go.*/ EXTERN c6Elhan2 78 /*Follow, <CHARNAME>, we must let the Lanthorn lead us to Suldanessellar. I can only hope that the Exile will have left us a city to find.*/
 	++ @124 /*Not just yet.*/ EXIT
-	
-
-
-	
-
-

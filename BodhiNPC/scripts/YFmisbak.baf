@@ -13,13 +13,16 @@ END
 IF
 	Global("YFBodhiMist","GLOBAL",3)
 	GlobalTimerExpired("YFBodhiDieTimer","GLOBAL")
-		OR(6)
-	!AreaType(OUTDOOR)
-	AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
-	AreaCheck("AR5202") //Forest of Mir (ToB)
-	TimeLT(DAWN_END)
-	TimeGT(DUSK_START)
-	HasItemEquiped("ohhcloak","YFBodhi")
+	OR(6)
+		!AreaType(OUTDOOR)
+		AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
+		AreaCheck("AR5202") //Forest of Mir (ToB)
+		TimeLT(DAWN_END)
+		TimeGT(DUSK_START)
+		OR(3)
+			HasItemEquiped("ohhcloak","YFBodhi")
+			HasItemEquiped("yfbcloak","YFBodhi")
+			HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObjectOffScreen("YFBodhi",Player1)
@@ -79,13 +82,16 @@ END
 IF
 	!InParty("YFBodhi")
 	Global("YFBodhiBurns","GLOBAL",2)
-		OR(6)
+	OR(6)
 	!AreaType(OUTDOOR)
 	AreaCheck("ar1404") //Shadow Temple Land shadowed (SoA)
 	AreaCheck("AR5202") //Forest of Mir (ToB)
 	TimeLT(DAWN_END)
 	TimeGT(DUSK_START)
-	HasItemEquiped("ohhcloak","YFBodhi")
+	OR(3)
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObjectOffScreen("YFBodhi",Player1)

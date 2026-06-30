@@ -4,8 +4,8 @@
 @53 = ~Like all mods that add NPCs to EET games, this mod must be installed after EET and before EET_End.~
 
 @54 /*Bodhi Name*/ = ~Bodhi~
-@55 /*Bodhi Bio*/ = ~When asked about her past, Bodhi spits out the words. She grew up in Suldanessellar alongside Jon Irenicus. Both of them were of unknown paternity and both were driven to surpass all others in their fields; he in magic and she in physical combat. During Jon Irenicus's mad scheme to become a god, she protected him, fighting off the most elite elven guards. For that crime, Queen Ellesime, Bodhi's half-sister, stripped them of their names and immortality and cast them out. As a vampire she was happy, but still mortal. Now with Imoen's soul within her, she feels elven once again, but remains consumed with hatred and regret.~
-@55001 /*Bodhi the Elf Bio*/ = ~When asked about her past, Bodhi laughs. For helping save her old city of Suldanessellar, Bodhi was rewarded with the form and soul that were taken from her years ago. Though she misses her half-sister, Queen Ellesime, she is happy to be on the road once again, where her preferred prey are plentiful.~
+@55 /*Bodhi Bio*/ = ~When asked about her past, Bodhi spits out the words. She grew up in Suldanessellar alongside Jon Irenicus. Both of them were of unknown paternity and both were driven to surpass all others in their fields; he in magic and she in physical combat. During Jon Irenicus's mad scheme to become a god, she protected him, fighting off the most elite elven guards. For that crime, Queen Ellesime stripped them of their names and immortality and cast them out. As a vampire she was happy, but still mortal. Now with Imoen's soul within her, she feels elven once again, but remains consumed with hatred and regret.~
+@55001 /*Bodhi the Elf Bio*/ = ~When asked about her past, Bodhi laughs. For helping save her old city of Suldanessellar, Bodhi was rewarded with the form and soul that were taken from her years ago. Though she misses her homeland, she is happy to be on the road once again, where her preferred prey are plentiful.~
 @56 /*Morale*/ = ~No, no, it's mine! This life is mine!~ [BODHIX41.WAV]
 @5601 /*Leader*/ = ~Follow, please, and stay exactly in step with me. You would regret otherwise.~ [YFBodh05.WAV]
 @57 /*Bored*/ = ~Your task is clear, yet you delay.~ [BODHIX21.WAV]
@@ -89,6 +89,34 @@ Weight: 0~
 STATISTICS:
 
 Weight: 0~
+
+//空棺材
+@80 /*名称*/ = ~Empty Casket~
+@81 /*描述*/ = ~Using the existing enchantment of Dragomir's Respite, Bodhi has bound this casket within it, from which it cannot be removed. Its actual size can easily accommodate a person of average build.~
+
+//芭荻的棺材
+@82 /*名称*/ = ~Bodhi's Coffin~
+@83 /*描述*/ = ~This coffin seems to be magically bound within the Bag of Holding it was found within, and cannot be removed. Inside, the vampire Bodhi sleeps and regenerates.~
+
+//空棺材
+@78 /*名称*/ = ~Cloak of Dragomir~
+@79 /*描述*/ = ~This cloak was crafted and imbued with powerful undead magic by the necromancer Zulann Fass while she was in the employ of the warlord Dragomir. Dragomir had been turned to vampirism and, not wanting to leave his previous life behind, demanded that Zulann craft a magical garment that would allow him to travel in the light of the sun without being destroyed. While Zulann was successful, the cloak severely dampened many of the vampiric abilities that Dragomir had come to enjoy. 
+
+For this inconvenience, she was drained of her lifeblood by Dragomir and left to die.
+
+STATISTICS:
+
+Equipped abilities: 
+– Allows a vampire to travel outside during the day and in full view of the sun, albeit with the following penalties:
+ Strength: -6
+ Dexterity: -4
+ Intelligence: -2
+ Wisdom: -2
+ Charisma: -4
+
+Wearable only by vampires.
+
+Weight: 3~
 
 //Bodhi Epilogue (Vampire)
 @135 = ~After her time with <CHARNAME>, Bodhi retired to Zazesspur, the largest port city in Tethyr. There she preyed on hapless sailors and merchants who were unfortunate enough to catch her eye. After many deaths, Zazesspur sent its guards and soldiers to destroy her, which led to their complete obliteration. Eventually the city government accepted Bodhi's presence and redesigned the city around her, redirecting the poorest and least favorable ships to her favorite hunting grounds.~

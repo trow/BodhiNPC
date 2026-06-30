@@ -45,8 +45,17 @@ IF
 	!HasItem("ohhcloak","Hexxat")
 THEN
 	RESPONSE #100
-	ActionOverride("Hexxat",CreateItem("ohhcloak",0,0,0)
-	ActionOverride("Hexxat",XEquipItem("ohhcloak",Myself,SLOT_CLOAK,EQUIP))
+	TakePartyItem("ohhcloak")
+	XEquipItem("ohhcloak",Myself,SLOT_CLOAK,EQUIP)
+	ActionOverride("YFBodhi",CreateItem("yfbcloak",0,0,0)
+	ActionOverride("YFBodhi",XEquipItem("yfbcloak",Myself,SLOT_CLOAK,EQUIP))
 	IncrementGlobal("YFCloakTalk","GLOBAL",1)
 END
 
+IF
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+THEN
+    RESPONSE #100
+        GiveItem("ohhbag",Player1)  // 德拉戈米尔的憩袋
+        DisplayStringHead(Myself,81936)  // 我需要你帮我保存这个。
+END

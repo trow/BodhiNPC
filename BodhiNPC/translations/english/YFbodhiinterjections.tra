@@ -43,7 +43,7 @@
 @31 /*Avatar*/ = ~WHO SPEAKS? YOU, EXILE, DID YOU THINK YOUR DISGUISE WOULD FOOL ME? THAT YOU COULD SPEAK AND I WOULD NOT HEAR?~
 @32 /*Avatar*/ = ~ HOWEVER, I SEE YOU BEAR THE MARK OF FRIENDSHIP. YOUR PRESENCE SHALL BE TOLERATED.~
 @33 /*Bodhi*/ = ~It seems I must thank Elhan and his pet warsage for their magic after all.~
-@34 /*Avatar*/ = ~YOU LOVE YOUR SISTER AND YOU WILL SAVE HER FROM HIM.~
+@34 /*Avatar*/ = ~YOU WILL SAVE HER FROM HIM. SHE WILL GIVE YOU WHAT YOU SEEK.~
 @35 /*Bodhi*/ = ~This will be a massacre, <CHARNAME>. My brother's forces stand no chance.~
 @36 /*Bodhi*/ = ~And so another of his foolish plans unravels.~
 
@@ -76,11 +76,11 @@
 @56 /*Bodhi*/ = ~I shall continue being called Bodhi.~
 @57 /*Bodhi*/ = ~When we were cast out, we had nothing, not even our names, but one day I called him, "Jon" and it worked! We realized that despite owning nothing, we could give names to one another.~
 @58 /*Bodhi*/ = ~He called me, "Bodhi", and from that day forward I was determined to live... I had hope.~
-@59 /*Ellesime*/ = ~Hope... yes. You were like a leaf that refused to fall, clinging desperately to the branch, thinking that was eternal life. But the elves understand: only when leaves return to their roots can the tree be reborn in the coming spring. Bodhi, you have experienced withering, decay, the long winter... and now you are finally willing to fall back to the earth. This is not an end, but the beginning of enlightenment. From this day forth, Suldanessellar shall call you: Bodhi-of-the-Fallen-Leaves — Bodhi. May you remember: every fallen leaf once bathed in sunlight, and every fall is for true growth. Close your eyes, sister; this will take but a moment.~
+@59 /*Ellesime*/ = ~Hope... yes. You were like a leaf that refused to fall, clinging desperately to the branch, thinking that was eternal life. But the elves understand: only when leaves return to their roots can the tree be reborn in the coming spring. Bodhi, you have experienced withering, decay, the long winter... and now you are finally willing to fall back to the earth. This is not an end, but the beginning of enlightenment. From this day forth, Suldanessellar shall call you: Bodhi-of-the-Fallen-Leaves. May you remember: every fallen leaf once bathed in sunlight, and every fall is for true growth. Close your eyes, sister; this will take but a moment.~
 @60 /*Bodhi*/ = ~<CHARNAME> is right. There is no place for me here.~
 @61 /*Ellesime*/ = ~You bring me grief with your response, but I shall not lose hope. You are immortal; you may yet still change your mind.~
 @62 /*Ellesime*/ = ~Should you ever choose to come back to us, I will welcome you with open arms.~
-@63 /*Ellesime*/ = ~Now embrace me, my sister. It has been too long.~
+@63 /*Ellesime*/ = ~In the name of the Queen of Suldanessellar, I acknowledge the return of Fallen Bodhi to the elvenkind. She returned bearing darkness, yet sowed it not. Not because I have forgiven her, but because Rillifane's cycle never asks for forgiveness. The falling leaf is no ending; it becomes the soil, guarding the roots in another form.~
 
 //Ellisime's Final Talk Interjection
 @64 /*Ellisime*/ = ~In particular, we welcome Bodhi to our home once again.~

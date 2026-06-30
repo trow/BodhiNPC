@@ -14,7 +14,6 @@ SAY @2 /*The sun, it burns! I will find you later.*/
 	END
 END
 
-
 //1st Hexxat Cloak Talk
 CHAIN IF WEIGHT #-1 ~Global("YFCloakTalk","GLOBAL",1)~ THEN HEXXA25J YFHexxatWhines
 @3 /*You are wearing my cloak.*/
@@ -36,7 +35,7 @@ EXIT
 
 CHAIN YFBod25j YFBodhiSad
 @14 /*You give it to me only to ask for its return? My heart is broken, <CHARNAME>. With the sun denied me, I will sulk in the dark.*/
-DO ~ActionOverride("HEXXAT",TakePartyItem("ohhcloak")) XEquipItem("ohhcloak","YFBodhi",SLOT_CLOAK,EQUIP)~
+DO ~ActionOverride("HEXXAT",TakePartyItem("ohhcloak")) XEquipItem("ohhcloak","HEXXAT",SLOT_CLOAK,EQUIP)~
 EXIT
 
 //2nd Hexxat Talk
@@ -45,4 +44,14 @@ CHAIN IF WEIGHT #-1 ~Global("YFCloakTalk","GLOBAL",5)~ THEN YFBod25j YFDoubleMin
 DO ~SetGlobal("YFCloakTalk","GLOBAL",6)~
 == HEXXA25J @16 /*He was a large vampire. When I had an opportunity, I recut his cloak and made two. I did not need the spare until now.*/
 = @17 /*It is clear that <CHARNAME> relies on you. I will have to accept your company as well.*/
+EXIT
+
+//1st Bodhi bag talk
+CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",0) InParty("YFBodhi")~ THEN YFBod25j YFBodhiGetBag
+@18 /*这个袋子看起来有点意思，我得好好研究一下。*/DO ~SetGlobal("YFCASKTalk","GLOBAL",1)~
+EXIT
+
+//2nd Bodhi bag talk
+CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",1) InParty("YFBodhi")~ THEN YFBod25j YFBodhiSetCask
+@19 /*趁着你休息的时候，我放了一口新棺材在这个袋子里，这样以后我就不用跑太远了。*/ DO ~SetGlobal("YFCASKTalk","GLOBAL",2) AddStoreItem("OHHBAG","YFBCASK",0,0)~
 EXIT

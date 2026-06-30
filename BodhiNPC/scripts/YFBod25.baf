@@ -2,15 +2,18 @@
 
 //Bodhi Elf Script
 IF
+	InParty("YFBodhi")
 	Global("YFBodhiBecomesElf","GLOBAL",1)
 	Global("YFBodhiVampireVanish","GLOBAL",0)
 THEN
-	RESPONSE #100
-	DropInventory()
-	CreateCreature("YFBodElf",[743.427],S)
-	SetGlobal("YFBodhiVampireVanish","GLOBAL",1)
-	LeaveParty()
-	Continue()
+    RESPONSE #100
+        CreateCreature("YFBodElf",[743.427],S)  // 芭荻        
+        ActionOverride("YFBodElf",TakeCreatureItems("YFBodhi",ALL))
+        SmallWait(3)
+        DropInventory()
+        SetGlobal("YFBodhiVampireVanish","GLOBAL",1)
+        LeaveParty()
+        Continue()
 END
 
 IF
@@ -77,6 +80,7 @@ IF
 	TimeGT(DAWN_END)
 	TimeLT(DUSK_START)
 	!HasItemEquiped("ohhcloak",Myself)  // Cloak of Dragomir
+	!HasItemEquiped("yfbcloak",Myself)
 	Global("YFBodhiBurns","GLOBAL",0)
 THEN
 	RESPONSE #100
@@ -126,7 +130,7 @@ IF
 	Global("YFCloakTalk","GLOBAL",5)
 	InParty("YFBodhi")
 	InParty("HEXXAT")
-	HasItem("ohhcloak","YFBodhi")
+	HasItem("yfbcloak","YFBodhi")
 	HasItem("ohhcloak","Hexxat")
 THEN
 	RESPONSE #100
@@ -151,5 +155,39 @@ THEN
 	StartDialogNoSet(Player1)
 END
 
-	
+IF
+	!HasItem("YFBCASK",Myself)
+	!HasItem("YFBCASK2",Myself)
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+	Global("YFCASKTalk","GLOBAL",0)
+	InParty("YFBodhi")
+THEN
+    RESPONSE #100
+	SetGlobalTimer("YFCloakTalkTimer","GLOBAL",SEVEN_DAYS)
+	StartDialogNoSet(Player1)
+END
 
+IF
+	!HasItem("YFBCASK",Myself)
+	!HasItem("YFBCASK2",Myself)
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+	Global("YFCASKTalk","GLOBAL",1)
+	InParty("YFBodhi")
+	PartyRested()
+	GlobalTimerExpired("YFCloakTalkTimer","GLOBAL")
+THEN
+    RESPONSE #100
+	StartDialogNoSet(Player1)
+	IncrementGlobal("YFCASKTalk","GLOBAL",1)
+END
+
+IF
+	OR(2)
+		HasItem("YFBCASK",Myself)
+		HasItem("YFBCASK2",Myself)
+    HasItem("ohhbag",Myself)  // 德拉戈米尔的憩袋
+THEN
+    RESPONSE #100
+        GiveItem("ohhbag",Player1)  // 德拉戈米尔的憩袋
+        DisplayStringHead(Myself,@81936)  // 我需要你帮我保存这个。
+END
