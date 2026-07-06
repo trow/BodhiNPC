@@ -459,7 +459,7 @@ ACTION_IF GAME_IS ~eet~ THEN BEGIN
       override_ToB = "YFBod25" //ToB Override script
       dialog_ToB = "YFBod25" //ToB dialogue file
 	  cre_ToB = "YFBod25"
-	  traFile = EVAL "BodhiNPC/translations/%LANGUAGE%/YFBod25.tra"
+	  traFile = EVAL "BodhiNPC/translations/%LANGUAGE%/YFFateSpBodhi.tra"
       string = "@0" /*Bring me Bodhi, the bloodthirsty vampire.*/
       stringPosDV = "Cernd" //Bodhi should be appended right above Cernd
 	  clean_ToB_DV = "YFBodhi"
