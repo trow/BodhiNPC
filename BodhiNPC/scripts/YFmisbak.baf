@@ -3,12 +3,30 @@
 IF
 	!InParty("YFBodhi")
 	Global("YFBodhiMist","GLOBAL",2)
+	!PartyHasItem("YFBCASK",Myself)
 THEN
 	RESPONSE #100
 	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",EIGHT_HOURS)
 	ActionOverride("YFBodhi",ApplySpell(Myself,HEAL_NO_VISUAL))
 	SetGlobal("YFBodhiMist","GLOBAL",3)
 END
+IF
+	PartyHasItem("YFBCASK",Myself)
+	!InParty("YFBodhi")
+	Global("YFBodhiMist","GLOBAL",2)
+THEN
+	RESPONSE #100
+	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2"))
+	ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) 
+	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",ONE_HOUR)
+	ActionOverride("YFBodhi",ApplySpell(Myself,HEAL_NO_VISUAL))
+	SetGlobal("YFBodhiMist","GLOBAL",3)
+END
+
 
 IF
 	Global("YFBodhiMist","GLOBAL",3)
@@ -41,6 +59,12 @@ IF
 	Global("YFBodhiMist","GLOBAL",5)
 THEN
 	RESPONSE #100
+	ActionOverride(Player1,TransformItem("YFBCASK2","YFBCASK"))
+	ActionOverride(Player2,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player3,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player4,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player5,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player6,TransformItem("YFBCASK2","YFBCASK")) 
 	ActionOverride("YFBodhi",MoveToObject(Player1))
 	SetGlobal("YFBodhiMist","GLOBAL",6)
 END

@@ -105,8 +105,8 @@ END
 	++ @35 /*Happy or not, he must help us. Only we can stop Irenicus.*/ GOTO YFElhanNotHappyToSeeBodhi2
 	++ @36 /*What's the deal with you and Elhan, anyway?*/ GOTO YFElhanNotHappyToSeeBodhi3
 	++ @37 /*You are wearing no chains, Bodhi. You move freely.*/ GOTO YFBodhiNotChainedElhan1
-	+~Global("REYFodhiSex","GLOBAL",1)~+ @38 /*Forget about Elhan. Remember the last time we were in your lair... you led me to your coffin... and we...*/ GOTO YFCNRemembersBodhiSex1
-	+~!Global("REYFodhiSex","GLOBAL",1)~+ @39 /*Forget about Elhan. I have chased you across half the world and now I have you. Let's spend some time alone.*/ GOTO YFCNWantsBodhiSex1
+	+~Global("RE_BodhiSex","GLOBAL",1)~+ @38 /*Forget about Elhan. Remember the last time we were in your lair... you led me to your coffin... and we...*/ GOTO YFCNRemembersBodhiSex1
+	+~!Global("RE_BodhiSex","GLOBAL",1) False()~+ @39 /*Forget about Elhan. I have chased you across half the world and now I have you. Let's spend some time alone.*/ GOTO YFCNWantsBodhiSex1
 	++ @40 /*Off we go then.*/ EXIT
 
 APPEND YFBodhij IF ~~ THEN BEGIN YFCNWantstoWalkSuldenesselar1
