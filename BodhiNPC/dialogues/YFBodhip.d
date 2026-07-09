@@ -24,7 +24,7 @@ APPEND YFBodhip IF WEIGHT #-1 ~Global("YFBodhiMist","GLOBAL",8) Global("YFBodhiR
 	END
 END
 
-//Bodhi's talk after coming back if dying.
+//Bodhi's talk after coming back if Burns.
 APPEND YFBodhip IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",7) Global("YFBodhiRemoved","GLOBAL",2)~ THEN YFbodhiburnstalkp7
 	SAY @8 /*Finally. I do not know why you insist on traveling during the day.*/
 	IF ~~ THEN DO ~SetGlobal("YFBodhiBurns","GLOBAL",0) SetGlobal("YFBodhiRemoved","GLOBAL",0) JoinParty()~ EXIT

@@ -1,18 +1,29 @@
 BEGIN YFBod25j
 
-
-APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiMist","GLOBAL",1)~ THEN BEGIN YFbodhimisttalk1
+APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiMist","GLOBAL",1) !PartyHasItem("YFBCASK")~ THEN BEGIN YFbodhimisttalk1
 SAY @0 /*No, no it's mine! This life is mine! [BODHIX41.WAV]*/
 	= @1 /*<CHARNAME>, I flee. When I am whole I will find you, if you live.*/
 	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") SetGlobal("YFBodhiMist","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() EscapeAreaMove("AR4000",771,931,S)~ EXIT
 	END
 END
+APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiMist","GLOBAL",1) PartyHasItem("YFBCASK")~ THEN BEGIN YFbodhimisttalk1
+SAY @0 /*No, no it's mine! This life is mine! [BODHIX41.WAV]*/
+	= @1 /*<CHARNAME>, I flee. When I am whole I will find you, if you live.*/
+	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") SetGlobal("YFBodhiMist","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() MoveGlobal("AR4000",Myself,[771.931])~ EXIT
+	END
+END
 
-APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",1)~ THEN BEGIN YFbodhiburnstalk1
+APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",1) !PartyHasItem("YFBCASK")~ THEN BEGIN YFbodhiburnstalk1
 SAY @2 /*The sun, it burns! I will find you later.*/
 	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") SetGlobal("YFBodhiBurns","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() EscapeAreaMove("AR4000",771,931,S)~ EXIT
 	END
 END
+APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",1) PartyHasItem("YFBCASK")~ THEN BEGIN YFbodhiburnstalk1
+SAY @2 /*The sun, it burns! I will find you later.*/
+	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") SetGlobal("YFBodhiBurns","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() MoveGlobal("AR4000",Myself,[771.931])~ EXIT
+	END
+END
+
 
 //1st Hexxat Cloak Talk
 CHAIN IF WEIGHT #-1 ~Global("YFCloakTalk","GLOBAL",1)~ THEN HEXXA25J YFHexxatWhines
@@ -48,10 +59,10 @@ EXIT
 
 //1st Bodhi bag talk
 CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",0) InParty("YFBodhi")~ THEN YFBod25j YFBodhiGetBag
-@18 /*这个袋子看起来有点意思，我得好好研究一下。*/DO ~SetGlobal("YFCASKTalk","GLOBAL",1)~
+@125 /*这个袋子看起来有点意思，我得好好研究一下。*/DO ~SetGlobal("YFCASKTalk","GLOBAL",1)~
 EXIT
 
 //2nd Bodhi bag talk
 CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",1) InParty("YFBodhi")~ THEN YFBod25j YFBodhiSetCask
-@19 /*趁着你休息的时候，我放了一口新棺材在这个袋子里，这样以后我就不用跑太远了。*/ DO ~SetGlobal("YFCASKTalk","GLOBAL",2) AddStoreItem("OHHBAG","YFBCASK",0,0)~
+@126 /*趁着你休息的时候，我放了一口新棺材在这个袋子里，这样以后我就不用跑太远了。*/ DO ~SetGlobal("YFCASKTalk","GLOBAL",2) AddStoreItem("OHHBAG","YFBCASK",0,0)~
 EXIT

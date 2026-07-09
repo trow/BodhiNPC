@@ -7,10 +7,10 @@ IF
 	Global("YFBodhiVampireVanish","GLOBAL",0)
 THEN
     RESPONSE #100
+        CreateCreature("YFBodElf",[-1.-1],S)  // 芭荻
         LeaveParty()
         JumpToPoint([743.427])  // Spirit Heads
         SmallWait(1)
-        CreateCreature("YFBodElf",[-1.-1],S)  // 芭荻
         ActionOverride("YFBodElf",TakeCreatureItems("YFBodhi",ALL))  // 芭荻
         SmallWait(3)
         DropInventory()
