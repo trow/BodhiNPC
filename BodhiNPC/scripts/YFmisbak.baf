@@ -17,7 +17,7 @@ IF
 THEN
 	RESPONSE #100
 
-	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",SEVEN_HOURS)
+	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",FOUR_HOURS)
 	ActionOverride("YFBodhi",ApplySpell(Myself,HEAL_NO_VISUAL))
 	SetGlobal("YFBodhiMist","GLOBAL",3)
 END
