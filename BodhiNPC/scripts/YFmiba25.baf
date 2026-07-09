@@ -3,7 +3,7 @@
 IF
 	!InParty("YFBodhi")
 	Global("YFBodhiMist","GLOBAL",2)
-	!PartyHasItem("YFBCASK",Myself)
+	!PartyHasItem("YFBCASK")
 THEN
 	RESPONSE #100
 	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",EIGHT_HOURS)
@@ -13,7 +13,7 @@ END
 IF
 	!InParty("YFBodhi")
 	Global("YFBodhiMist","GLOBAL",2)
-	PartyHasItem("YFBCASK",Myself)
+	PartyHasItem("YFBCASK")
 THEN
 	RESPONSE #100
 	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2")) 
