@@ -104,7 +104,21 @@ COPY_EXISTING ~BERTRAND.cre~ ~override~ //Bertrand the Companion
 
 //Bodhi SoA
 PRINT @156 /*Adding Bodhi NPC for all your evil vampire needs*/
-COPY ~BodhiNPC/copy~ ~override~
+COPY ~BodhiNPC/spells~ ~override~
+
+COPY ~BodhiNPC/characters/YFBOMI25.CRE~ ~override/YFBOMI25.CRE~
+
+COPY ~BodhiNPC/characters/YFbodhi.bmp~ ~override/YFbodhi.bmp~
+COPY ~BodhiNPC/characters/YFBoElfL.bmp~ ~override/YFBoElfL.bmp~
+COPY ~BodhiNPC/characters/YFBoElfM.bmp~ ~override/YFBoElfM.bmp~
+
+LAF HANDLE_AUDIO
+        // 传递给函数的字符串变量，指定音频文件的路径。
+  STR_VAR
+    audio_path = ~BodhiNPC/audio~// OGG 文件源路径
+    oggdec_path = ~BodhiNPC/audio~ // OGG 解码器路径 (可能未使用)
+    sox_path = ~BodhiNPC/audio~ // Sox 音频处理工具路径 (可能未使用)
+END
 COPY ~BodhiNPC/characters/YFbodhi.cre~ ~override/YFbodhi.cre~
 SAY NAME1 @54 /*Bodhi*/
 SAY NAME2 @54 /*Bodhi*/
