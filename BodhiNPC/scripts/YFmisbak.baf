@@ -31,9 +31,9 @@ IF
 		AreaCheck("AR5202") //Forest of Mir (ToB)
 		TimeLT(DAWN_END)
 		TimeGT(DUSK_START)
-			HasItemEquiped("ohhcloak","YFBodhi")
-			HasItemEquiped("yfbcloak","YFBodhi")
-			HasItemEquiped("ohhkork","YFBodhi")
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObjectOffScreen("YFBodhi",Player1)
@@ -49,9 +49,9 @@ IF
 		AreaCheck("AR5202") //Forest of Mir (ToB)
 		TimeLT(DAWN_END)
 		TimeGT(DUSK_START)
-			HasItemEquiped("ohhcloak","YFBodhi")
-			HasItemEquiped("yfbcloak","YFBodhi")
-			HasItemEquiped("ohhkork","YFBodhi")
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObject("YFBodhi",Player1)
