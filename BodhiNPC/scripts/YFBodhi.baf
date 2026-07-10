@@ -17,10 +17,27 @@ THEN
 END
 
 IF
+	!PartyHasItem("YFBCASK2")
 	Global("YFBodhiMist","GLOBAL",6)
 	Range([PC],3)
 THEN
 	RESPONSE #100
+	TransformItem("YFbohar2","YFbohair")
+	SetDialog("YFBodhip")
+	SetGlobal("YFBodhiMist","GLOBAL",8)
+END
+IF
+	PartyHasItem("YFBCASK2")
+	Global("YFBodhiMist","GLOBAL",6)
+	Range([PC],3)
+THEN
+	RESPONSE #100
+	ActionOverride(Player1,TransformItem("YFBCASK2","YFBCASK"))
+	ActionOverride(Player2,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player3,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player4,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player5,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player6,TransformItem("YFBCASK2","YFBCASK")) 
 	TransformItem("YFbohar2","YFbohair")
 	SetDialog("YFBodhip")
 	SetGlobal("YFBodhiMist","GLOBAL",8)
@@ -41,6 +58,7 @@ IF
 	TimeLT(DUSK_START)
 	!HasItemEquiped("ohhcloak",Myself)  // Cloak of Dragomir
 	!HasItemEquiped("yfbcloak",Myself)
+	!HasItemEquiped("ohhkork",Myself)
 	Global("YFBodhiBurns","GLOBAL",0)
 THEN
 	RESPONSE #100
@@ -56,10 +74,27 @@ THEN
 END
 
 IF
+	!PartyHasItem("YFBCASK2")
 	Global("YFBodhiBurns","GLOBAL",5)
 	Range([PC],3)
 THEN
 	RESPONSE #100
+	TransformItem("YFbohar2","YFbohair")
+	SetDialog("YFBodhip")
+	SetGlobal("YFBodhiBurns","GLOBAL",7)
+END
+IF
+	PartyHasItem("YFBCASK2")
+	Global("YFBodhiBurns","GLOBAL",5)
+	Range([PC],3)
+THEN
+	RESPONSE #100
+	ActionOverride(Player1,TransformItem("YFBCASK2","YFBCASK"))
+	ActionOverride(Player2,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player3,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player4,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player5,TransformItem("YFBCASK2","YFBCASK")) 
+	ActionOverride(Player6,TransformItem("YFBCASK2","YFBCASK")) 
 	TransformItem("YFbohar2","YFbohair")
 	SetDialog("YFBodhip")
 	SetGlobal("YFBodhiBurns","GLOBAL",7)

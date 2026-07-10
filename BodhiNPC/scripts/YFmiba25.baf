@@ -3,7 +3,7 @@
 IF
 	!InParty("YFBodhi")
 	Global("YFBodhiMist","GLOBAL",2)
-	!PartyHasItem("YFBCASK")
+	!PartyHasItem("YFBCASK2")
 THEN
 	RESPONSE #100
 	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",EIGHT_HOURS)
@@ -13,7 +13,7 @@ END
 IF
 	!InParty("YFBodhi")
 	Global("YFBodhiMist","GLOBAL",2)
-	PartyHasItem("YFBCASK")
+	PartyHasItem("YFBCASK2")
 THEN
 	RESPONSE #100
 	SetGlobalTimer("YFBodhiDieTimer","GLOBAL",FOUR_HOURS)
@@ -21,9 +21,8 @@ THEN
 	SetGlobal("YFBodhiMist","GLOBAL",3)
 END
 
-
 IF
-	!PartyHasItem("YFBCASK")
+	!PartyHasItem("YFBCASK2")
 	Global("YFBodhiMist","GLOBAL",3)
 	GlobalTimerExpired("YFBodhiDieTimer","GLOBAL")
 	OR(8)
@@ -32,16 +31,16 @@ IF
 		AreaCheck("AR5202") //Forest of Mir (ToB)
 		TimeLT(DAWN_END)
 		TimeGT(DUSK_START)
-			HasItemEquiped("ohhcloak","YFBodhi")
-			HasItemEquiped("yfbcloak","YFBodhi")
-			HasItemEquiped("ohhkork","YFBodhi")
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObjectOffScreen("YFBodhi",Player1)
 	SetGlobal("YFBodhiMist","GLOBAL",4)
 END
 IF
-	PartyHasItem("YFBCASK")
+	PartyHasItem("YFBCASK2")
 	Global("YFBodhiMist","GLOBAL",3)
 	GlobalTimerExpired("YFBodhiDieTimer","GLOBAL")
 	OR(8)
@@ -50,19 +49,12 @@ IF
 		AreaCheck("AR5202") //Forest of Mir (ToB)
 		TimeLT(DAWN_END)
 		TimeGT(DUSK_START)
-			HasItemEquiped("ohhcloak","YFBodhi")
-			HasItemEquiped("yfbcloak","YFBodhi")
-			HasItemEquiped("ohhkork","YFBodhi")
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObject("YFBodhi",Player1)
-	Wait(1)
-	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2"))
-	ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) 
 	SetGlobal("YFBodhiMist","GLOBAL",4)
 END
 
@@ -87,17 +79,20 @@ IF
 	Global("YFBodhiMist","GLOBAL",5)
 THEN
 	RESPONSE #100
-	ActionOverride(Player1,TransformItem("YFBCASK2","YFBCASK"))
-	ActionOverride(Player2,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player3,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player4,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player5,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player6,TransformItem("YFBCASK2","YFBCASK")) 
 	ActionOverride("YFBodhi",JumpToObject(Player1))
 	SetGlobal("YFBodhiMist","GLOBAL",6)
 END
 
 IF
+	!PartyHasItem("YFBCASK")
+	Global("YFBodhiMist","GLOBAL",6)
+	GlobalTimerExpired("YFBodhiDieFixTimer","GLOBAL")
+THEN
+	RESPONSE #100
+	SetGlobal("YFBodhiMist","GLOBAL",7)
+END
+IF
+	PartyHasItem("YFBCASK")
 	Global("YFBodhiMist","GLOBAL",6)
 	GlobalTimerExpired("YFBodhiDieFixTimer","GLOBAL")
 THEN
@@ -106,7 +101,7 @@ THEN
 END
 
 IF
-	!PartyHasItem("YFBCASK")
+	!PartyHasItem("YFBCASK2")
 	Global("YFBodhiMist","GLOBAL",7)
 THEN
 	RESPONSE #100
@@ -115,19 +110,12 @@ THEN
 	SetGlobal("YFBodhiMist","GLOBAL",4)
 END
 IF
-	PartyHasItem("YFBCASK")
+	PartyHasItem("YFBCASK2")
 	Global("YFBodhiMist","GLOBAL",7)
 THEN
 	RESPONSE #100
 	ActionOverride("YFBodhi",SetInterrupt(TRUE))
 	MoveGlobalObject("YFBodhi",Player1)
-	Wait(1)
-	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2"))
-	ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) 
 	SetGlobal("YFBodhiMist","GLOBAL",4)
 END
 
@@ -139,6 +127,12 @@ THEN
 	RESPONSE #100
 	ActionOverride("YFBodhi",ApplySpell(Myself,CLERIC_RESURRECTION))
 	ActionOverride("YFBodhi",ApplySpellRES("YFbomi25",Myself))
+	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2"))
+	ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) 
+	ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) 
 	ActionOverride("YFBodhi",TransformItem("YFbohair","YFbohar2"))
 	SetGlobal("YFBodhiMist","GLOBAL",2) 
 	SetGlobal("YFBodhiRemoved","GLOBAL",2) 
@@ -157,9 +151,9 @@ IF
 		AreaCheck("AR5202") //Forest of Mir (ToB)
 		TimeLT(DAWN_END)
 		TimeGT(DUSK_START)
-			HasItemEquiped("ohhcloak","YFBodhi")
-			HasItemEquiped("yfbcloak","YFBodhi")
-			HasItemEquiped("ohhkork","YFBodhi")
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObjectOffScreen("YFBodhi",Player1)
@@ -175,18 +169,12 @@ IF
 		AreaCheck("AR5202") //Forest of Mir (ToB)
 		TimeLT(DAWN_END)
 		TimeGT(DUSK_START)
-			HasItemEquiped("ohhcloak","YFBodhi")
-			HasItemEquiped("yfbcloak","YFBodhi")
-			HasItemEquiped("ohhkork","YFBodhi")
+		HasItemEquiped("ohhcloak","YFBodhi")
+		HasItemEquiped("yfbcloak","YFBodhi")
+		HasItemEquiped("ohhkork","YFBodhi")
 THEN
 	RESPONSE #100
 	MoveGlobalObject("YFBodhi",Player1)
-	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2"))
-	ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) 
 	SetGlobal("YFBodhiBurns","GLOBAL",3)
 END
 
@@ -211,12 +199,6 @@ IF
 	Global("YFBodhiBurns","GLOBAL",4)
 THEN
 	RESPONSE #100
-	ActionOverride(Player1,TransformItem("YFBCASK2","YFBCASK"))
-	ActionOverride(Player2,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player3,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player4,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player5,TransformItem("YFBCASK2","YFBCASK")) 
-	ActionOverride(Player6,TransformItem("YFBCASK2","YFBCASK")) 
 	ActionOverride("YFBodhi",JumpToObject(Player1))
 	SetGlobal("YFBodhiBurns","GLOBAL",5)
 END
@@ -245,11 +227,5 @@ THEN
 	RESPONSE #100
 	ActionOverride("YFBodhi",SetInterrupt(TRUE))
 	MoveGlobalObject("YFBodhi",Player1)
-	ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2"))
-	ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) 
-	ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) 
 	SetGlobal("YFBodhiBurns","GLOBAL",3)
 END

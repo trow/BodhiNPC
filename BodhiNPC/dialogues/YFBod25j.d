@@ -9,7 +9,7 @@ END
 APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiMist","GLOBAL",1) PartyHasItem("YFBCASK")~ THEN BEGIN YFbodhimisttalk1
 SAY @0 /*No, no it's mine! This life is mine! [BODHIX41.WAV]*/
 	= @1 /*<CHARNAME>, I flee. When I am whole I will find you, if you live.*/
-	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") SetGlobal("YFBodhiMist","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() MoveGlobal("AR4000",Myself,[771.931])~ EXIT
+	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) SetGlobal("YFBodhiMist","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() MoveGlobal("AR4000",Myself,[771.931])~ EXIT
 	END
 END
 
@@ -20,7 +20,7 @@ SAY @2 /*The sun, it burns! I will find you later.*/
 END
 APPEND YFBod25j IF WEIGHT #-1 ~Global("YFBodhiBurns","GLOBAL",1) PartyHasItem("YFBCASK")~ THEN BEGIN YFbodhiburnstalk1
 SAY @2 /*The sun, it burns! I will find you later.*/
-	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") SetGlobal("YFBodhiBurns","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() MoveGlobal("AR4000",Myself,[771.931])~ EXIT
+	IF ~~ THEN DO ~ApplySpellRES("YFbomi25",Myself) TransformItem("YFbohair","YFbohar2") ActionOverride(Player1,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player2,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player3,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player4,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player5,TransformItem("YFBCASK","YFBCASK2")) ActionOverride(Player6,TransformItem("YFBCASK","YFBCASK2")) SetGlobal("YFBodhiBurns","GLOBAL",2) SetGlobal("YFBodhiRemoved","GLOBAL",2) LeaveParty() MoveGlobal("AR4000",Myself,[771.931])~ EXIT
 	END
 END
 
