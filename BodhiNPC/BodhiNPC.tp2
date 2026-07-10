@@ -2,9 +2,9 @@ BACKUP ~BodhiNPC/backup~
 
 AUTHOR ~MephistoSatanDevil~
 
-VERSION ~Version 1.0.0~
+VERSION ~Version 1.1.0~
 
-README ~BodhiNPC/readme.txt~ //This gives people the option of opening the readme
+README ~BodhiNPC/translations/%LANGUAGE%/readme.txt~ ~BodhiNPC/readme.md~ //This gives people the option of opening the readme
 
 AUTO_TRA ~BodhiNPC/translations/%s~ //You need this if you plan to have multiple languages.
 
