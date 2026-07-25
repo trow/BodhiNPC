@@ -8,8 +8,8 @@
 
 This mod extracts Bodhi from the All Things Mazzy (ATM) mod, making her available as a standalone NPC companion for those who wish to experience Bodhi's content without installing the full ATM package.
 
-![Bodhi Portrait](https://raw.githubusercontent.com/trow/BodhiNPC/refs/heads/main/BodhiNPC/copy/YFbodhi.bmp)
-![Elf Bodhi Portrait](https://raw.githubusercontent.com/trow/BodhiNPC/refs/heads/main/BodhiNPC/copy/YFBoElfL.bmp)
+![Bodhi Portrait](https://raw.githubusercontent.com/trow/BodhiNPC/refs/heads/main/BodhiNPC/characters/YFbodhi.bmp)
+![Elf Bodhi Portrait](https://raw.githubusercontent.com/trow/BodhiNPC/refs/heads/main/BodhiNPC/characters/YFBoElfL.bmp)
 
 > This project is based on the Bodhi-related content originally created for All Things Mazzy. It has been extracted and released as a standalone mod with the kind [permission](https://forums.beamdog.com/discussion/71473/_/p46) of the ATM authors. No content has been removed or altered from the original Bodhi component—this is purely a standalone release for players who want Bodhi without the full ATM installation.
 
