@@ -430,6 +430,7 @@ SAY DESC @83
 	END
 
   	<<<<<<<< .../StoreItemYF_cask2Select.LUA
+
 local old = CScreenStore.SelectStoreItem
 CScreenStore.SelectStoreItem = function(self, nIndex, bSelected)
     if store.storeItems[nIndex + 1].item.res == "YFBCASK" then return end
@@ -443,6 +444,7 @@ end
   	END
 
   	<<<<<<<< .../StoreItemYF_cask2Select.LUA
+
 local old = CScreenStore.SelectStoreItem
 CScreenStore.SelectStoreItem = function(self, nIndex, bSelected)
     if store.storeItems[nIndex + 1].item.res == "YFBCASK2" then return end
