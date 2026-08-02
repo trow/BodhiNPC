@@ -57,3 +57,6 @@
 @55 /*Bodhi*/ = ~Are you certain? As they say, "Looks are in the eyes of the beholder."~
 @56 /*Bodhi*/ = ~I am the greatest warrior in the city of Suldanessellar. Try me.~
 @57 /*Bodhi*/ = ~I am overjoyed to hear that, <CHARNAME>. After all, you are my second favorite person.~
+
+@59 /*Charname*/ = ~Bodhi, it seems your dear brother has created a "sister" for you. *chuckle*~ 
+@60 /*Bodhi*/ = ~I feel... my soul is being torn apart... It... is becoming incomplete... No, no, that is my soul. I will not be controlled by others any longer.~ [BODHIX41.WAV]
