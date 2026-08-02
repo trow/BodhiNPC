@@ -2,7 +2,7 @@ BACKUP ~BodhiNPC/backup~
 
 AUTHOR ~MephistoSatanDevil~
 
-VERSION ~Version 1.1.0~
+VERSION ~Version 1.2.0~
 
 README ~BodhiNPC/translations/%LANGUAGE%/readme.txt~ ~BodhiNPC/readme.md~ //This gives people the option of opening the readme
 
@@ -311,6 +311,18 @@ END ELSE BEGIN    // 如果未检测到 Clara，则打印信息。
 	COMPILE EVALUATE_BUFFER ~BodhiNPC/dialogues/bYFBod25.d~
 END // 结束 Clara 不存在的处理块。
 
+//Crossmod files for ascension only
+// ----- ascension 的跨 Mod (Crossmod) 内容 -----
+// 检查游戏中是否存在 ascension NPC 的角色文件 (!sartob.cre)。
+// 这通常意味着 ascension NPC Mod 已安装。
+ACTION_IF FILE_EXISTS_IN_GAME ~finBodh.cre~ THEN BEGIN //This code detects the ascension NPC and adds his banters with Bodhi
+    // 如果检测到 ascension，则打印信息。
+ PRINT @152
+     // 编译 finBodhi 与 YFBodhi 之间的互动对话文件。
+	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension/YFBodhi.d~
+	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension/YFBod25.d~
+	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension/YFBodElf.d~
+END // 结束
 
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhi.baf~
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhid.baf~

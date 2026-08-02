@@ -25,3 +25,12 @@ THEN
 	AddXPObject("YFBodElf",4250000)
 	SetGlobal("YFFirstBodhiElfXP","GLOBAL",1)
 END
+
+IF
+	Global("YFfinbodhDialogue","GLOBAL",0)
+	See("finbodh")
+THEN
+	RESPONSE #100
+	DisplayStringHead(Myself,@60)
+	IncrementGlobal("YFfinbodhDialogue","GLOBAL",1)
+END
