@@ -2,7 +2,7 @@ BACKUP ~BodhiNPC/backup~
 
 AUTHOR ~MephistoSatanDevil~
 
-VERSION ~Version 1.2.0~
+VERSION ~Version 1.2.1~
 
 README ~BodhiNPC/translations/%LANGUAGE%/readme.txt~ ~BodhiNPC/readme.md~ //This gives people the option of opening the readme
 
@@ -319,9 +319,7 @@ ACTION_IF FILE_EXISTS_IN_GAME ~finBodh.cre~ THEN BEGIN //This code detects the a
     // 如果检测到 ascension，则打印信息。
  PRINT @152
      // 编译 finBodhi 与 YFBodhi 之间的互动对话文件。
-	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension/YFBodhi.d~
-	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension/YFBod25.d~
-	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension/YFBodElf.d~
+	COMPILE EVALUATE_BUFFER ~BodhiNPC/crossmod/ascension.d~
 END // 结束
 
 COMPILE EVALUATE_BUFFER ~BodhiNPC/scripts/YFBodhi.baf~

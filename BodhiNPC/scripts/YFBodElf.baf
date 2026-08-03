@@ -31,6 +31,6 @@ IF
 	See("finbodh")
 THEN
 	RESPONSE #100
-	DisplayStringHead(Myself,@60)
+	DisplayStringHead(Myself,@61)
 	IncrementGlobal("YFfinbodhDialogue","GLOBAL",1)
 END
