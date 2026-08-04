@@ -23,25 +23,40 @@ EXTEND_BOTTOM finbodh 7
 END
 
 APPEND YFBod25j
-	IF ~InParty("YFBodhi")~ THEN BEGIN finBodhiCrossmod
+	IF ~~ THEN BEGIN finBodhiCrossmod
 	SAY @60
-	IF ~~ THEN + YFfinBodhiCrossmodChain
+		IF ~Global("BalthazarFights","GLOBAL",1)DifficultyLT(4)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2a")~ EXIT
+		IF ~Global("BalthazarFights","GLOBAL",1)DifficultyGT(3)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2b")~ EXIT
+		IF ~Global("BalthazarFights","GLOBAL",0)DifficultyLT(5)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2a")~ EXIT
+		IF ~Global("BalthazarFights","GLOBAL",0)DifficultyGT(4)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2b")~ EXIT
 	END
 END
 
 APPEND YFBoElfj
-	IF ~InParty("YFBodElf")~ THEN BEGIN finBodhElfCrossmod
+	IF ~~ THEN BEGIN finBodhElfCrossmod
 	SAY @60
-	IF ~~ THEN + YFfinBodhiCrossmodChain
+		IF ~Global("BalthazarFights","GLOBAL",1)DifficultyLT(4)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2a")~ EXIT
+		IF ~Global("BalthazarFights","GLOBAL",1)DifficultyGT(3)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2b")~ EXIT
+		IF ~Global("BalthazarFights","GLOBAL",0)DifficultyLT(5)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2a")~ EXIT
+		IF ~Global("BalthazarFights","GLOBAL",0)DifficultyGT(4)~ THEN DO
+			~ClearAllActions()StartCutSceneMode()StartCutScene("irenic2b")~ EXIT
+	//IF ~~ THEN + YFfinBodhiElfCrossmodChain
 	END
 END
 
-CHAIN YFBod25j YFfinBodhiCrossmodChain
-@61 
-DO ~ClearAllActions() StartCutSceneMode() StartCutSceneEx("irenic2b",FALSE)~ 
-EXIT
-
-CHAIN YFBoElfj YFfinBodhiCrossmodChain
-@61 
-DO ~ClearAllActions() StartCutSceneMode() StartCutSceneEx("irenic2b",FALSE)~ 
-EXIT
+//CHAIN YFBod25j YFfinBodhiCrossmodChain
+//@61 
+//DO ~ClearAllActions() StartCutSceneMode() StartCutSceneEx("irenic2b",FALSE)~ 
+//EXIT
+//
+//CHAIN YFBoElfj YFfinBodhiElfCrossmodChain
+//@61 
+//DO ~ClearAllActions() StartCutSceneMode() StartCutSceneEx("irenic2b",FALSE)~ 
+//EXIT
