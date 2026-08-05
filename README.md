@@ -60,11 +60,14 @@ This is a standalone version of Bodhi from All Things Mazzy. If you already have
 - Drizzt encounters may conflict—Bodhi is programmed as Drizzt's enemy
 
 **Installation Order:**
-- Install after Living Clara mod for optimal crossmod interactions
+- Install after Living Clara mod and Ascension mod for optimal crossmod interactions
 - On EET installations: install before EET_End
 
 **Known Issues:**
 - None reported at this time. Please report any bugs through the project's GitHub issues page.
+
+**On Multilingual Translation**
+- As my native language is Chinese, all other languages have been translated with the assistance of AI. If you encounter any text-related issues while playing, please do not hesitate to let me know. Contributions and help with translations into other languages are greatly appreciated.
 
 ## Credits
 
