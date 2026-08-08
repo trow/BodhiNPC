@@ -67,7 +67,7 @@ This is a standalone version of Bodhi from All Things Mazzy. If you already have
 - None reported at this time. Please report any bugs through the project's GitHub issues page.
 
 **On Multilingual Translation**
-- As my native language is Chinese, all other languages have been translated with the assistance of AI. If you encounter any text-related issues while playing, please do not hesitate to let me know. Contributions and help with translations into other languages are greatly appreciated.
+- Since Chinese is my native language, all translations into other languages were done with AI assistance. If you notice any text issues while playing, please feel free to report them. Pull requests for translations in other languages are warmly welcome!
 
 ## Credits
 
