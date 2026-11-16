@@ -106,9 +106,9 @@ COPY_EXISTING ~BERTRAND.cre~ ~override~ //Bertrand the Companion
 PRINT @156 /*Adding Bodhi NPC for all your evil vampire needs*/
 COPY ~BodhiNPC/spells~ ~override~
 
-COPY ~BodhiNPC/characters/YFBOMI25.CRE~ ~override/YFBOMI25.CRE~
+COPY ~BodhiNPC/characters/YFBoMi25.CRE~ ~override/YFBoMi25.CRE~
 
-COPY ~BodhiNPC/characters/YFbodhi.bmp~ ~override/YFbodhi.bmp~
+COPY ~BodhiNPC/characters/YFBodhi.bmp~ ~override/YFBodhi.bmp~
 COPY ~BodhiNPC/characters/YFBoElfL.bmp~ ~override/YFBoElfL.bmp~
 COPY ~BodhiNPC/characters/YFBoElfM.bmp~ ~override/YFBoElfM.bmp~
 

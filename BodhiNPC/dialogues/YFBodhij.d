@@ -78,12 +78,12 @@ CHAIN YFBodhij YFBodhiDeadLoverTalk2
 EXIT
 
 //1st Bodhi bag talk
-CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",0) InParty("YFBodhi")~ THEN YFBod25j YFBodhiGetBag
+CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",0) InParty("YFBodhi")~ THEN YFBodhij YFBodhiGetBag
 @125 /*这个袋子看起来有点意思，我得好好研究一下。*/DO ~SetGlobal("YFCASKTalk","GLOBAL",1)~
 EXIT
 
 //2nd Bodhi bag talk
-CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",1) InParty("YFBodhi")~ THEN YFBod25j YFBodhiSetCask
+CHAIN IF WEIGHT #-1 ~!HasItem("YFBCASK",Myself) !HasItem("YFBCASK2",Myself) HasItem("ohhbag",Myself) Global("YFCASKTalk","GLOBAL",1) InParty("YFBodhi")~ THEN YFBodhij YFBodhiSetCask
 @126 /*趁着你休息的时候，我放了一口新棺材在这个袋子里，这样以后我就不用跑太远了。*/ DO ~SetGlobal("YFCASKTalk","GLOBAL",2) AddStoreItem("OHHBAG","YFBCASK",0,0)~
 EXIT
 
